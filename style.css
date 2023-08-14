@@ -6,6 +6,7 @@
 
 .calculator{
     display: grid;
+    grid-template-columns: [calculation-section]1fr [memory-section]300px;
 }
 
 .screen{
@@ -17,4 +18,9 @@
 .inputButtons{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+}
+
+.memory-section{
+    display: flex;
+    gap: 1rem;
 }
