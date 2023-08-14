@@ -54,3 +54,15 @@ button{
     font-size: 1.5rem;
     color: black;
 }
+
+[special-key]:hover, [operators]:hover{
+    background-color: rgb(54, 54, 54);
+}
+
+[operands]:hover{
+    background-color: rgb(44, 44, 44);
+}
+
+[equals]:hover{
+    opacity: 0.8;
+}
