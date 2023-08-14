@@ -4,20 +4,33 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+button{
+    border: none;
+    border-radius: 3px;
+    color: white;
+}
+
+[special-key]{
+    background-color: gray;
+}
+
 .calculator{
     display: grid;
     grid-template-columns: [calculation-section]1fr [memory-section]300px;
+    background-color: rgb(63, 63, 63);
 }
 
 .screen{
     display: flex;
-    height: 8rem;
+    height: 12rem;
     background-color: red;
 }
 
 .inputButtons{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    height: 70vh;
+    gap: 3px;
 }
 
 .memory-section{
