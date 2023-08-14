@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(31, 31, 31);
 }
 
 button{
@@ -10,20 +11,15 @@ button{
     color: white;
 }
 
-[special-key]{
-    background-color: gray;
-}
-
 .calculator{
     display: grid;
     grid-template-columns: [calculation-section]1fr [memory-section]300px;
-    background-color: rgb(63, 63, 63);
 }
 
 .screen{
     display: flex;
     height: 12rem;
-    background-color: red;
+    color: white;
 }
 
 .inputButtons{
@@ -36,4 +32,25 @@ button{
 .memory-section{
     display: flex;
     gap: 1rem;
+}
+
+[special-key]{
+    background-color: rgb(44, 44, 44);
+    font-size: 0.9rem;
+}
+
+[operators]{
+    background-color: rgb(44, 44, 44);
+    font-size: 1.5rem;
+}
+
+[operands]{
+    background-color: rgb(54, 54, 54);
+    font-size: 1rem;
+}
+
+[equals]{
+    background-color: gray;
+    font-size: 1.5rem;
+    color: black;
 }
