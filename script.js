@@ -3,29 +3,27 @@ const operatorButtons = document.querySelectorAll("[operators]");
 const currentTextField = document.querySelector(".big-text");
 const previousTextField = document.querySelector(".small-text");
 const equalsButton = document.querySelector("[equals]");
-let firstNumber;
-let secondNumber;
+let previousNumber;
+let currentNumber;
 let operator;
 let answer;
 
-function operate(firstNumber, secondNumber, operator) {
+function operate(previousNumber, currentNumber, operator) {
     switch (operator) {
         case "+":
-            add(firstNumber, secondNumber);
+            add(previousNumber, currentNumber);
             break;
         case "−":
-            subtract(firstNumber, secondNumber);
+            subtract(previousNumber, currentNumber);
             break;
         case "×":
-            multiply(firstNumber, secondNumber);
+            multiply(previousNumber, currentNumber);
             break;
         case "÷":
-            divide(firstNumber, secondNumber);
+            divide(previousNumber, currentNumber);
             break;
     }
 }
-
-operate(firstNumber, secondNumber, operator);
 
 function add(x, y) {
     return (x + y);
@@ -40,6 +38,21 @@ function divide(x, y) {
     return (x / y);
 }
 
+operate(previousNumber, currentNumber, operator);
+
+function compute() {
+    if (operator == "+") {
+        currentTextField.textContent = add(previousNumber, currentNumber);
+    } else if (operator == "−") {
+        currentTextField.textContent = subtract(previousNumber, currentNumber);
+    } else if (operator == "×") {
+        currentTextField.textContent = multiply(previousNumber, currentNumber);
+    } else if (operator == "÷") {
+        currentTextField.textContent = divide(previousNumber, currentNumber);
+    }
+    previousTextField.textContent = `${previousNumber} ${operator} ${currentNumber} =`;
+}
+
 function displayOutput() {
     let newNumber = false;
     operandButtons.forEach((button) => {
@@ -50,11 +63,20 @@ function displayOutput() {
             } else {
                 currentTextField.textContent = currentTextField.textContent == "0" ? button.textContent : currentTextField.textContent += button.textContent;
             }
+            currentNumber = parseInt(currentTextField.textContent);
+            previousNumber = parseInt(previousTextField.textContent);
+
         })
     })
 
     operatorButtons.forEach((button) => {
         button.addEventListener("click", () => {
+            if (isNaN(previousNumber)) {
+                previousNumber = "";
+            }
+            console.log("Current num", currentNumber);
+            console.log("Previous num", previousNumber);
+            compute();
             newNumber = true;
             previousTextField.textContent = currentTextField.textContent + button.textContent;
             operator = button.textContent;
@@ -62,22 +84,9 @@ function displayOutput() {
     })
 
     equalsButton.addEventListener("click", () => {
-        firstNumber = parseInt(previousTextField.textContent);
-        secondNumber = parseInt(currentTextField.textContent);
-
-        if(operator == "+"){
-            currentTextField.textContent = add(firstNumber, secondNumber);
-            previousTextField.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
-        }else if(operator == "-"){
-            currentTextField.textContent = subtract(firstNumber, secondNumber);
-            previousTextField.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
-        }else if(operator == "×"){
-            currentTextField.textContent = multiply(firstNumber, secondNumber);
-            previousTextField.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
-        }else if(operator == "÷"){
-            currentTextField.textContent = divide(firstNumber, secondNumber);
-            previousTextField.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
-        }
+        previousNumber = parseInt(previousTextField.textContent);
+        currentNumber = parseInt(currentTextField.textContent);
+        compute();
     })
 }
 displayOutput();
