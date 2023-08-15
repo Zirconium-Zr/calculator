@@ -42,7 +42,7 @@ function divide(x, y) {
 function displayOutput(){
     operandButtons.forEach((button)=>{
         button.addEventListener("click", ()=>{
-            currentTextField.textContent += button.textContent;
+            currentTextField.textContent = currentTextField.textContent == "0" ? button.textContent : currentTextField.textContent += button.textContent;
         })
     })
 }
