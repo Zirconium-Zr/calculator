@@ -41,15 +41,22 @@ function divide(x, y) {
     return answer = x / y;
 }
 
-function displayOutput(){
-    operandButtons.forEach((button)=>{
-        button.addEventListener("click", ()=>{
-            currentTextField.textContent = currentTextField.textContent == "0" ? button.textContent : currentTextField.textContent += button.textContent;
+function displayOutput() {
+    let newNumber = false;
+    operandButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            if (newNumber) {
+                currentTextField.textContent = button.textContent;
+                newNumber = false;
+            } else {
+                currentTextField.textContent = currentTextField.textContent == "0" ? button.textContent : currentTextField.textContent += button.textContent;
+            }
         })
     })
 
-    operatorButtons.forEach((button)=>{
-        button.addEventListener("click", ()=>{
+    operatorButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            newNumber = true;
             previousTextField.textContent = currentTextField.textContent + button.textContent;
         })
     })
