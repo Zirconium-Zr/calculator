@@ -74,12 +74,14 @@ function displayOutput() {
             if (isNaN(previousNumber)) {
                 previousNumber = "";
             }
-            console.log("Current num", currentNumber);
-            console.log("Previous num", previousNumber);
             compute();
             newNumber = true;
             previousTextField.textContent = currentTextField.textContent + button.textContent;
             operator = button.textContent;
+            currentNumber = parseInt(currentTextField.textContent);
+            previousNumber = parseInt(previousTextField.textContent);
+            console.log("Current num", currentNumber);
+            console.log("Previous num", previousNumber);
         })
     })
 
