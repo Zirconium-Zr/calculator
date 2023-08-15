@@ -2,6 +2,7 @@ const operandButtons = document.querySelectorAll("[operands]");
 const operatorButtons = document.querySelectorAll("[operators]");
 const currentTextField = document.querySelector(".big-text");
 const previousTextField = document.querySelector(".small-text");
+const equalsButton = document.querySelector("[equals]");
 let firstNumber;
 let secondNumber;
 let operator;
@@ -12,33 +13,31 @@ function operate(firstNumber, secondNumber, operator) {
         case "+":
             add(firstNumber, secondNumber);
             break;
-        case "-":
+        case "−":
             subtract(firstNumber, secondNumber);
             break;
-        case "*":
+        case "×":
             multiply(firstNumber, secondNumber);
             break;
-        case "/":
+        case "÷":
             divide(firstNumber, secondNumber);
             break;
-        default:
-            console.log("Invalid");
     }
 }
 
 operate(firstNumber, secondNumber, operator);
 
 function add(x, y) {
-    return answer = x + y;
+    return (x + y);
 }
 function subtract(x, y) {
-    return answer = x - y;
+    return (x - y);
 }
 function multiply(x, y) {
-    return answer = x * y;
+    return (x * y);
 }
 function divide(x, y) {
-    return answer = x / y;
+    return (x / y);
 }
 
 function displayOutput() {
@@ -58,7 +57,27 @@ function displayOutput() {
         button.addEventListener("click", () => {
             newNumber = true;
             previousTextField.textContent = currentTextField.textContent + button.textContent;
+            operator = button.textContent;
         })
+    })
+
+    equalsButton.addEventListener("click", () => {
+        firstNumber = parseInt(previousTextField.textContent);
+        secondNumber = parseInt(currentTextField.textContent);
+
+        if(operator == "+"){
+            currentTextField.textContent = add(firstNumber, secondNumber);
+            previousTextField.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
+        }else if(operator == "-"){
+            currentTextField.textContent = subtract(firstNumber, secondNumber);
+            previousTextField.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
+        }else if(operator == "×"){
+            currentTextField.textContent = multiply(firstNumber, secondNumber);
+            previousTextField.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
+        }else if(operator == "÷"){
+            currentTextField.textContent = divide(firstNumber, secondNumber);
+            previousTextField.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
+        }
     })
 }
 displayOutput();
