@@ -1,6 +1,8 @@
-let firstNumber = +prompt("Enter first number");
-let secondNumber = +prompt("Enter second number");
-let operator = prompt("Enter operator");
+const operandButtons = document.querySelectorAll("[operands]");
+const currentTextField = document.querySelector(".big-text");
+let firstNumber;
+let secondNumber;
+let operator;
 let answer;
 
 function operate(firstNumber, secondNumber, operator) {
@@ -25,31 +27,23 @@ function operate(firstNumber, secondNumber, operator) {
 operate(firstNumber, secondNumber, operator);
 
 function add(x, y) {
-    answer = x + y;
-    console.log(answer);
+    return answer = x + y;
 }
 function subtract(x, y) {
-    answer = x - y;
-    console.log(answer);
+    return answer = x - y;
 }
 function multiply(x, y) {
-    answer = x * y;
-    console.log(answer);
+    return answer = x * y;
 }
 function divide(x, y) {
-    answer = x / y;
-    console.log(answer);
+    return answer = x / y;
 }
 
-// let first = prompt("Enter number");
-// let second = prompt("Enter number");
-
-// function yes(first, second){
-//     ok(first, second);
-// }
-// yes(first, second);
-
-// function ok(first, second){
-//     console.log(first, second);
-// }
-
+function displayOutput(){
+    operandButtons.forEach((button)=>{
+        button.addEventListener("click", ()=>{
+            currentTextField.textContent += button.textContent;
+        })
+    })
+}
+displayOutput();
