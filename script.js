@@ -102,8 +102,9 @@ function deleteNumber(){
 }
 
 function clearAll(){
-    currentTextField.textContent = 0;
+    currentTextField.textContent = "0";
     previousTextField.textContent = "";
+    operator = null;
 }
 
 deleteButton.addEventListener("click", deleteNumber);
