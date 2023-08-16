@@ -52,8 +52,12 @@ function compute() {
         currentTextField.textContent = multiply(previousNumber, currentNumber);
     } else if (operator == "÷") {
         currentTextField.textContent = divide(previousNumber, currentNumber);
+    }else if(operator == undefined){
+        previousTextField.textContent = parseFloat(currentTextField.textContent) + "" + "=";
     }
-    previousTextField.textContent = `${previousNumber} ${operator} ${currentNumber} =`;
+    if(operator!=undefined){
+        previousTextField.textContent = `${previousNumber} ${operator} ${currentNumber} =`;
+    }
 }
 
 function displayOutput() {
@@ -62,7 +66,15 @@ function displayOutput() {
     currentTextField.textContent = "0";  
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            if(currentTextField.textContent.includes(".") && button.textContent == ".") return;
+            if(currentTextField.textContent.includes(".") && button.textContent == "."){
+                // if(newNumber){
+                //     toggleCompute = true;
+                //     currentTextField.textContent = button.textContent;
+                //     newNumber = false;
+                // }
+                // currentTextField.textContent = parseFloat(currentTextField.textContent);
+                return;
+            };
             if (newNumber) {
                 toggleCompute = true;
                 currentTextField.textContent = button.textContent;
@@ -78,6 +90,7 @@ function displayOutput() {
 
     operatorButtons.forEach((button) => {
         button.addEventListener("click", () => {
+            newNumber = true;
             if (isNaN(previousNumber)) {
                 previousNumber = "";
             }
@@ -85,7 +98,6 @@ function displayOutput() {
                 compute();
                 toggleCompute = false;
             }
-            newNumber = true;
             previousTextField.textContent = currentTextField.textContent + button.textContent;
             operator = button.textContent;
             currentNumber = parseFloat(currentTextField.textContent);
@@ -105,7 +117,6 @@ function deleteNumber(){
     if(currentTextField.textContent == ""){
         currentTextField.textContent = 0;
     }
-    
 }
 
 function clearAll(){
