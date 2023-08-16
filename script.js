@@ -5,6 +5,7 @@ const previousTextField = document.querySelector(".small-text");
 const equalsButton = document.querySelector("[equals]");
 const deleteButton = document.querySelector(".delete");
 const clearAllButton = document.querySelector(".clearAll");
+const clearEntryButton = document.querySelector(".clearEntry");
 let previousNumber;
 let currentNumber;
 let operator;
@@ -107,6 +108,11 @@ function clearAll(){
     operator = null;
 }
 
+function clearEntry(){
+    currentTextField.textContent = "0";
+}
+
 deleteButton.addEventListener("click", deleteNumber);
 clearAllButton.addEventListener("click", clearAll);
+clearEntryButton.addEventListener("click", clearEntry);
 displayOutput();
