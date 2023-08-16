@@ -3,6 +3,8 @@ const operatorButtons = document.querySelectorAll("[operators]");
 const currentTextField = document.querySelector(".big-text");
 const previousTextField = document.querySelector(".small-text");
 const equalsButton = document.querySelector("[equals]");
+const deleteButton = document.querySelector(".delete");
+const clearAllButton = document.querySelector(".clearAll");
 let previousNumber;
 let currentNumber;
 let operator;
@@ -85,8 +87,6 @@ function displayOutput() {
             operator = button.textContent;
             currentNumber = parseInt(currentTextField.textContent);
             previousNumber = parseInt(previousTextField.textContent);
-            console.log("Current num", currentNumber);
-            console.log("Previous num", previousNumber);
         })
     })
 
@@ -96,4 +96,16 @@ function displayOutput() {
         compute();
     })
 }
+
+function deleteNumber(){
+    currentTextField.textContent = currentTextField.textContent.slice(0, -1);
+}
+
+function clearAll(){
+    currentTextField.textContent = 0;
+    previousTextField.textContent = "";
+}
+
+deleteButton.addEventListener("click", deleteNumber);
+clearAllButton.addEventListener("click", clearAll);
 displayOutput();
