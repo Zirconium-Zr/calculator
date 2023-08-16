@@ -80,12 +80,6 @@ function resetCalculator(){
             button.addEventListener("click", ()=> location.reload());
         }
     })
-    operatorButtons.forEach((button)=>{
-        button.setAttribute("disabled", "");
-    })
-    operandButtons.forEach((button)=>{
-        button.addEventListener("click", ()=> location.reload());
-    })
 }
 
 function displayOutput() {
