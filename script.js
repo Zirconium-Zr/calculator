@@ -55,9 +55,11 @@ function compute() {
 
 function displayOutput() {
     let newNumber = false;
+    let toggleCompute = false;
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
             if (newNumber) {
+                toggleCompute = true;
                 currentTextField.textContent = button.textContent;
                 newNumber = false;
             } else {
@@ -74,7 +76,10 @@ function displayOutput() {
             if (isNaN(previousNumber)) {
                 previousNumber = "";
             }
-            compute();
+            if(toggleCompute){
+                compute();
+                toggleCompute = false;
+            }
             newNumber = true;
             previousTextField.textContent = currentTextField.textContent + button.textContent;
             operator = button.textContent;
