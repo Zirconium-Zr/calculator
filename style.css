@@ -12,6 +12,10 @@ button {
     user-select: none;
 }
 
+sup{
+    background-color: transparent;
+}
+
 .calculator {
     display: grid;
     grid-template-columns: [calculation-section]1fr [memory-section]300px;
