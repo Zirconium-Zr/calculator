@@ -61,6 +61,7 @@ function displayOutput() {
     let toggleCompute = false;
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
+            if(currentTextField.textContent.includes(".") && button.textContent == ".") return;
             if (newNumber) {
                 toggleCompute = true;
                 currentTextField.textContent = button.textContent;
@@ -86,14 +87,14 @@ function displayOutput() {
             newNumber = true;
             previousTextField.textContent = currentTextField.textContent + button.textContent;
             operator = button.textContent;
-            currentNumber = parseInt(currentTextField.textContent);
-            previousNumber = parseInt(previousTextField.textContent);
+            currentNumber = parseFloat(currentTextField.textContent);
+            previousNumber = parseFloat(previousTextField.textContent);
         })
     })
 
     equalsButton.addEventListener("click", () => {
-        previousNumber = parseInt(previousTextField.textContent);
-        currentNumber = parseInt(currentTextField.textContent);
+        previousNumber = parseFloat(previousTextField.textContent);
+        currentNumber = parseFloat(currentTextField.textContent);
         compute();
     })
 }
