@@ -59,6 +59,7 @@ function compute() {
 function displayOutput() {
     let newNumber = false;
     let toggleCompute = false;
+    currentTextField.textContent = "0";  
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
             if(currentTextField.textContent.includes(".") && button.textContent == ".") return;
@@ -69,8 +70,8 @@ function displayOutput() {
             } else {
                 currentTextField.textContent = currentTextField.textContent == "0" ? button.textContent : currentTextField.textContent += button.textContent;
             }
-            currentNumber = parseInt(currentTextField.textContent);
-            previousNumber = parseInt(previousTextField.textContent);
+            currentNumber = parseFloat(currentTextField.textContent);
+            previousNumber = parseFloat(previousTextField.textContent);
 
         })
     })
@@ -101,6 +102,10 @@ function displayOutput() {
 
 function deleteNumber(){
     currentTextField.textContent = currentTextField.textContent.slice(0, -1);
+    if(currentTextField.textContent == ""){
+        currentTextField.textContent = 0;
+    }
+    
 }
 
 function clearAll(){
@@ -111,6 +116,12 @@ function clearAll(){
 
 function clearEntry(){
     currentTextField.textContent = "0";
+}
+
+function displayZero(){
+    if(currentTextField.textContent == ""){
+        currentTextField.textContent = "0";
+    }
 }
 
 deleteButton.addEventListener("click", deleteNumber);
