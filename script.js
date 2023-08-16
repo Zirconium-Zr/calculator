@@ -1,11 +1,13 @@
 const operandButtons = document.querySelectorAll("[operands]");
 const operatorButtons = document.querySelectorAll("[operators]");
+const specialButtons = document.querySelectorAll("[special-key]");
 const currentTextField = document.querySelector(".big-text");
 const previousTextField = document.querySelector(".small-text");
 const equalsButton = document.querySelector("[equals]");
 const deleteButton = document.querySelector(".delete");
 const clearAllButton = document.querySelector(".clearAll");
 const clearEntryButton = document.querySelector(".clearEntry");
+const allButtons = document.querySelectorAll("button");
 let previousNumber;
 let currentNumber;
 let operator;
@@ -45,13 +47,21 @@ operate(previousNumber, currentNumber, operator);
 
 function compute() {
     if (operator == "+") {
-        currentTextField.textContent = add(previousNumber, currentNumber);
+        answer = add(previousNumber, currentNumber);
+        currentTextField.textContent = answer;
     } else if (operator == "−") {
-        currentTextField.textContent = subtract(previousNumber, currentNumber);
+        answer = subtract(previousNumber, currentNumber);
+        currentTextField.textContent = answer;
     } else if (operator == "×") {
-        currentTextField.textContent = multiply(previousNumber, currentNumber);
+        answer = multiply(previousNumber, currentNumber);
+        currentTextField.textContent = answer;
     } else if (operator == "÷") {
-        currentTextField.textContent = divide(previousNumber, currentNumber);
+        answer = divide(previousNumber, currentNumber);
+        if(currentNumber == 0){
+            resetCalculator();
+        }else{
+            currentTextField.textContent = answer;
+        }
     }else if(operator == undefined){
         previousTextField.textContent = parseFloat(currentTextField.textContent) + "" + "=";
     }
@@ -60,12 +70,33 @@ function compute() {
     }
 }
 
+// When answer is infinity
+function resetCalculator(){
+    currentTextField.textContent = "Cannot divide by zero";
+    allButtons.forEach((button)=>{
+        if(!button.classList.contains("number") && !button.classList.contains("clearButton") && !button.classList.contains("equals")){
+            button.setAttribute("disabled", "");
+        }else{
+            button.addEventListener("click", ()=> location.reload());
+        }
+    })
+    operatorButtons.forEach((button)=>{
+        button.setAttribute("disabled", "");
+    })
+    operandButtons.forEach((button)=>{
+        button.addEventListener("click", ()=> location.reload());
+    })
+}
+
 function displayOutput() {
     let newNumber = false;
     let toggleCompute = false;
     currentTextField.textContent = "0";  
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
+            if(currentTextField.textContent == "0" && button.textContent == "."){
+                currentTextField.textContent += button.textContent;
+            }
             if(currentTextField.textContent.includes(".") && button.textContent == ".") return;
             if (newNumber) {
                 toggleCompute = true;
@@ -87,7 +118,7 @@ function displayOutput() {
                 compute();
                 toggleCompute = false;
             }
-            previousTextField.textContent = currentTextField.textContent + button.textContent;
+            previousTextField.textContent = `${currentTextField.textContent} ${button.textContent}`;
             operator = button.textContent;
             currentNumber = parseFloat(currentTextField.textContent);
             previousNumber = parseFloat(previousTextField.textContent);
