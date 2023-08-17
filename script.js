@@ -105,6 +105,8 @@ function displayOutput() {
             } else {
                 currentTextField.textContent = currentTextField.textContent == "0" ? button.textContent : currentTextField.textContent += button.textContent;
             }
+            currentNumber = parseInt(currentTextField.textContent);
+            previousNumber = parseInt(previousTextField.textContent);
         })
     })
 
