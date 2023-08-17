@@ -8,7 +8,6 @@ const deleteButton = document.querySelector(".delete");
 const clearAllButton = document.querySelector(".clearAll");
 const clearEntryButton = document.querySelector(".clearEntry");
 const allButtons = document.querySelectorAll("button");
-const calculator = document.querySelector(".calculator").innerHTML;
 let firstNumber;
 let secondNumber;
 let operator;
@@ -85,9 +84,7 @@ function resetCalculator() {
         if (!button.classList.contains("number") && !button.classList.contains("clearButton") && !button.classList.contains("equals")) {
             button.setAttribute("disabled", "");
         } else {
-            button.addEventListener("click", () => {
-                document.querySelector(".calculator").innerHTML = calculator;
-            });
+            button.addEventListener("click", () => location.reload());
         }
     })
 }
