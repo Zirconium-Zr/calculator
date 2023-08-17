@@ -113,6 +113,7 @@ function displayOutput() {
     operatorButtons.forEach((button) => {
         button.addEventListener("click", () => {
             newNumber = true;
+            toggleEquals = false;
             if (isNaN(previousNumber)) {
                 previousNumber = "";
             }
