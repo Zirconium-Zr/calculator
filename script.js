@@ -1,3 +1,4 @@
+const allButtons = document.querySelectorAll("button");
 const operandButtons = document.querySelectorAll("[operands]");
 const operatorButtons = document.querySelectorAll("[operators]");
 const specialButtons = document.querySelectorAll("[special-key]");
@@ -7,11 +8,14 @@ const equalsButton = document.querySelector("[equals]");
 const deleteButton = document.querySelector(".delete");
 const clearAllButton = document.querySelector(".clearAll");
 const clearEntryButton = document.querySelector(".clearEntry");
-const allButtons = document.querySelectorAll("button");
+const plusMinusButton = document.querySelector(".plusMinus");
 let firstNumber;
 let secondNumber;
 let operator;
 let answer;
+let newNumber = false;
+let toggleCompute = false;
+let toggleEquals = false;
 
 function operate(firstNumber, secondNumber, operator) {
     switch (operator) {
@@ -90,36 +94,33 @@ function resetCalculator() {
 }
 
 function displayOutput() {
-    let newNumber = false;
-    let toggleCompute = false;
-    let toggleEquals = false;
     currentTextField.textContent = "0";
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            if(newNumber){
+            if (newNumber) {
                 currentTextField.textContent = "";
             }
-            if(button.textContent == "." && currentTextField.textContent.includes(".")) return;
+            if (button.textContent == "." && currentTextField.textContent.includes(".")) return;
             if (newNumber) {
                 if (toggleEquals) {
                     operator = null;
                     toggleEquals = false;
                 }
                 toggleCompute = true;
-                if(button.textContent == "."){
+                if (button.textContent == ".") {
                     currentTextField.textContent = "0" + button.textContent;
-                }else{
+                } else {
                     currentTextField.textContent = button.textContent;
                 }
                 newNumber = false;
             } else {
-                if(currentTextField.textContent == "0"){
-                    if(button.textContent == "."){
+                if (currentTextField.textContent == "0") {
+                    if (button.textContent == ".") {
                         currentTextField.textContent += button.textContent;
-                    }else{
+                    } else {
                         currentTextField.textContent = button.textContent;
                     }
-                }else{
+                } else {
                     currentTextField.textContent += button.textContent;
                 }
             }
@@ -180,7 +181,15 @@ function displayZero() {
     }
 }
 
+function changeSign() {
+    currentTextField.textContent *= -1;
+    previousTextField.textContent = toggleEquals ? `negate(${previousTextField.textContent})` : `negate(${currentTextField.textContent})`
+    // previousTextField.textContent = currentTextField.textContent * -1;
+}
+
 deleteButton.addEventListener("click", deleteNumber);
 clearAllButton.addEventListener("click", clearAll);
 clearEntryButton.addEventListener("click", clearEntry);
+plusMinusButton.addEventListener("click", changeSign);
+
 displayOutput();
