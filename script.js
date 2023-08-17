@@ -127,8 +127,6 @@ function displayOutput() {
             }
             previousTextField.textContent = `${currentTextField.textContent} ${button.textContent}`;
             operator = button.textContent;
-            secondNumber = parseFloat(currentTextField.textContent);
-            firstNumber = parseFloat(previousTextField.textContent);
         })
     })
 
