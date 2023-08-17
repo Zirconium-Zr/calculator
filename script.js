@@ -48,19 +48,19 @@ operate(firstNumber, secondNumber, operator);
 function compute() {
     switch (operator) {
         case "+":
-            answer = add(firstNumber, secondNumber);
+            answer = add(parseFloat(firstNumber), parseFloat(secondNumber));
             currentTextField.textContent = answer;
             break;
         case "−":
-            answer = subtract(firstNumber, secondNumber);
+            answer = subtract(parseFloat(firstNumber), parseFloat(secondNumber));
             currentTextField.textContent = answer;
             break;
         case "×":
-            answer = multiply(firstNumber, secondNumber);
+            answer = multiply(parseFloat(firstNumber), parseFloat(secondNumber));
             currentTextField.textContent = answer;
             break;
         case "÷":
-            answer = divide(firstNumber, secondNumber);
+            answer = divide(parseFloat(firstNumber), parseFloat(secondNumber));
             if (secondNumber == 0 && firstNumber != 0) {
                 currentTextField.textContent = "Cannot divide by zero";
                 resetCalculator();
@@ -96,26 +96,35 @@ function displayOutput() {
     currentTextField.textContent = "0";
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            if (currentTextField.textContent.includes(".") && button.textContent == ".") return;
+            if(newNumber){
+                currentTextField.textContent = "";
+            }
+            if(button.textContent == "." && currentTextField.textContent.includes(".")) return;
             if (newNumber) {
                 if (toggleEquals) {
-                    previousTextField.textContent = "";
                     operator = null;
                     toggleEquals = false;
                 }
                 toggleCompute = true;
-                currentTextField.textContent = button.textContent;
+                if(button.textContent == "."){
+                    currentTextField.textContent = "0" + button.textContent;
+                }else{
+                    currentTextField.textContent = button.textContent;
+                }
                 newNumber = false;
             } else {
-                // currentTextField.textContent = currentTextField.textContent == "0" ? button.textContent : currentTextField.textContent += button.textContent;
                 if(currentTextField.textContent == "0"){
-                    currentTextField.textContent = button.textContent;
+                    if(button.textContent == "."){
+                        currentTextField.textContent += button.textContent;
+                    }else{
+                        currentTextField.textContent = button.textContent;
+                    }
                 }else{
                     currentTextField.textContent += button.textContent;
                 }
             }
-            secondNumber = parseInt(currentTextField.textContent);
-            firstNumber = parseInt(previousTextField.textContent);
+            secondNumber = parseFloat(currentTextField.textContent);
+            firstNumber = parseFloat(previousTextField.textContent);
         })
     })
 
