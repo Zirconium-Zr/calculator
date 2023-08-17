@@ -49,7 +49,6 @@ function compute() {
     if (operator == "+") {
         answer = add(firstNumber, secondNumber);
         currentTextField.textContent = answer;
-        console.log(secondNumber);
     } else if (operator == "−") {
         answer = subtract(firstNumber, secondNumber);
         currentTextField.textContent = answer;
@@ -131,10 +130,12 @@ function displayOutput() {
     })
 
     equalsButton.addEventListener("click", () => {
-        firstNumber = parseFloat(previousTextField.textContent);
-        secondNumber = parseFloat(currentTextField.textContent);
-        console.log(firstNumber);
-        console.log(secondNumber);
+        if(toggleEquals){
+            firstNumber = parseFloat(currentTextField.textContent);
+        }else{
+            firstNumber = parseFloat(previousTextField.textContent);
+            secondNumber = parseFloat(currentTextField.textContent);
+        }
         compute();
         newNumber = true;
         toggleEquals = true;
