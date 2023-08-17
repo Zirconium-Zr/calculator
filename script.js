@@ -85,6 +85,7 @@ function resetCalculator(){
 function displayOutput() {
     let newNumber = false;
     let toggleCompute = false;
+    let toggleEquals = false;
     currentTextField.textContent = "0";  
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
@@ -93,6 +94,11 @@ function displayOutput() {
             }
             if(currentTextField.textContent.includes(".") && button.textContent == ".") return;
             if (newNumber) {
+                if(toggleEquals){
+                    previousTextField.textContent = "";
+                    operator = null;
+                    toggleEquals = false;
+                }
                 toggleCompute = true;
                 currentTextField.textContent = button.textContent;
                 newNumber = false;
@@ -123,6 +129,8 @@ function displayOutput() {
         previousNumber = parseFloat(previousTextField.textContent);
         currentNumber = parseFloat(currentTextField.textContent);
         compute();
+        newNumber = true;
+        toggleEquals = true;
     })
 }
 
