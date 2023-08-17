@@ -8,24 +8,24 @@ const deleteButton = document.querySelector(".delete");
 const clearAllButton = document.querySelector(".clearAll");
 const clearEntryButton = document.querySelector(".clearEntry");
 const allButtons = document.querySelectorAll("button");
-let previousNumber;
-let currentNumber;
+let firstNumber;
+let secondNumber;
 let operator;
 let answer;
 
-function operate(previousNumber, currentNumber, operator) {
+function operate(firstNumber, secondNumber, operator) {
     switch (operator) {
         case "+":
-            add(previousNumber, currentNumber);
+            add(firstNumber, secondNumber);
             break;
         case "−":
-            subtract(previousNumber, currentNumber);
+            subtract(firstNumber, secondNumber);
             break;
         case "×":
-            multiply(previousNumber, currentNumber);
+            multiply(firstNumber, secondNumber);
             break;
         case "÷":
-            divide(previousNumber, currentNumber);
+            divide(firstNumber, secondNumber);
             break;
     }
 }
@@ -43,34 +43,35 @@ function divide(x, y) {
     return (x / y);
 }
 
-operate(previousNumber, currentNumber, operator);
+operate(firstNumber, secondNumber, operator);
 
 function compute() {
     if (operator == "+") {
-        answer = add(previousNumber, currentNumber);
+        answer = add(firstNumber, secondNumber);
         currentTextField.textContent = answer;
+        console.log(secondNumber);
     } else if (operator == "−") {
-        answer = subtract(previousNumber, currentNumber);
+        answer = subtract(firstNumber, secondNumber);
         currentTextField.textContent = answer;
     } else if (operator == "×") {
-        answer = multiply(previousNumber, currentNumber);
+        answer = multiply(firstNumber, secondNumber);
         currentTextField.textContent = answer;
     } else if (operator == "÷") {
-        answer = divide(previousNumber, currentNumber);
-        if (currentNumber == 0 && previousNumber != 0) {
+        answer = divide(firstNumber, secondNumber);
+        if (secondNumber == 0 && firstNumber != 0) {
             currentTextField.textContent = "Cannot divide by zero";
             resetCalculator();
-        }else if(currentNumber == 0 && previousNumber == 0){
+        }else if(secondNumber == 0 && firstNumber == 0){
             currentTextField.textContent = "Result is undefined";
             resetCalculator();
         }else {
             currentTextField.textContent = answer;
         }
     } else if (operator == undefined) {
-        previousTextField.textContent = parseFloat(currentTextField.textContent) + "" + "=";
+        previousTextField.textContent = `${parseFloat(currentTextField.textContent)} =`;
     }
     if (operator != undefined) {
-        previousTextField.textContent = `${previousNumber} ${operator} ${currentNumber} =`;
+        previousTextField.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
     }
 }
 
@@ -108,8 +109,8 @@ function displayOutput() {
             } else {
                 currentTextField.textContent = currentTextField.textContent == "0" ? button.textContent : currentTextField.textContent += button.textContent;
             }
-            currentNumber = parseInt(currentTextField.textContent);
-            previousNumber = parseInt(previousTextField.textContent);
+            secondNumber = parseInt(currentTextField.textContent);
+            firstNumber = parseInt(previousTextField.textContent);
         })
     })
 
@@ -117,8 +118,8 @@ function displayOutput() {
         button.addEventListener("click", () => {
             newNumber = true;
             toggleEquals = false;
-            if (isNaN(previousNumber)) {
-                previousNumber = "";
+            if (isNaN(firstNumber)) {
+                firstNumber = "";
             }
             if (toggleCompute) {
                 compute();
@@ -126,14 +127,16 @@ function displayOutput() {
             }
             previousTextField.textContent = `${currentTextField.textContent} ${button.textContent}`;
             operator = button.textContent;
-            currentNumber = parseFloat(currentTextField.textContent);
-            previousNumber = parseFloat(previousTextField.textContent);
+            secondNumber = parseFloat(currentTextField.textContent);
+            firstNumber = parseFloat(previousTextField.textContent);
         })
     })
 
     equalsButton.addEventListener("click", () => {
-        previousNumber = parseFloat(previousTextField.textContent);
-        currentNumber = parseFloat(currentTextField.textContent);
+        firstNumber = parseFloat(previousTextField.textContent);
+        secondNumber = parseFloat(currentTextField.textContent);
+        console.log(firstNumber);
+        console.log(secondNumber);
         compute();
         newNumber = true;
         toggleEquals = true;
