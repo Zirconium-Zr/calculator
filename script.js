@@ -8,6 +8,7 @@ const deleteButton = document.querySelector(".delete");
 const clearAllButton = document.querySelector(".clearAll");
 const clearEntryButton = document.querySelector(".clearEntry");
 const allButtons = document.querySelectorAll("button");
+const calculator = document.querySelector(".calculator").innerHTML;
 let firstNumber;
 let secondNumber;
 let operator;
@@ -46,28 +47,32 @@ function divide(x, y) {
 operate(firstNumber, secondNumber, operator);
 
 function compute() {
-    if (operator == "+") {
-        answer = add(firstNumber, secondNumber);
-        currentTextField.textContent = answer;
-    } else if (operator == "−") {
-        answer = subtract(firstNumber, secondNumber);
-        currentTextField.textContent = answer;
-    } else if (operator == "×") {
-        answer = multiply(firstNumber, secondNumber);
-        currentTextField.textContent = answer;
-    } else if (operator == "÷") {
-        answer = divide(firstNumber, secondNumber);
-        if (secondNumber == 0 && firstNumber != 0) {
-            currentTextField.textContent = "Cannot divide by zero";
-            resetCalculator();
-        }else if(secondNumber == 0 && firstNumber == 0){
-            currentTextField.textContent = "Result is undefined";
-            resetCalculator();
-        }else {
+    switch (operator) {
+        case "+":
+            answer = add(firstNumber, secondNumber);
             currentTextField.textContent = answer;
-        }
-    } else if (operator == undefined) {
-        previousTextField.textContent = `${parseFloat(currentTextField.textContent)} =`;
+            break;
+        case "−":
+            answer = subtract(firstNumber, secondNumber);
+            currentTextField.textContent = answer;
+            break;
+        case "×":
+            answer = multiply(firstNumber, secondNumber);
+            currentTextField.textContent = answer;
+            break;
+        case "÷":
+            answer = divide(firstNumber, secondNumber);
+            if (secondNumber == 0 && firstNumber != 0) {
+                currentTextField.textContent = "Cannot divide by zero";
+                resetCalculator();
+            } else if (secondNumber == 0 && firstNumber == 0) {
+                currentTextField.textContent = "Result is undefined";
+                resetCalculator();
+            } else {
+                currentTextField.textContent = answer;
+            }
+        default:
+            previousTextField.textContent = `${parseFloat(currentTextField.textContent)} =`;
     }
     if (operator != undefined) {
         previousTextField.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
@@ -80,7 +85,9 @@ function resetCalculator() {
         if (!button.classList.contains("number") && !button.classList.contains("clearButton") && !button.classList.contains("equals")) {
             button.setAttribute("disabled", "");
         } else {
-            button.addEventListener("click", () => location.reload());
+            button.addEventListener("click", () => {
+                document.querySelector(".calculator").innerHTML = calculator;
+            });
         }
     })
 }
@@ -92,9 +99,6 @@ function displayOutput() {
     currentTextField.textContent = "0";
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            if (currentTextField.textContent == "0" && button.textContent == ".") {
-                currentTextField.textContent += button.textContent;
-            }
             if (currentTextField.textContent.includes(".") && button.textContent == ".") return;
             if (newNumber) {
                 if (toggleEquals) {
@@ -106,7 +110,12 @@ function displayOutput() {
                 currentTextField.textContent = button.textContent;
                 newNumber = false;
             } else {
-                currentTextField.textContent = currentTextField.textContent == "0" ? button.textContent : currentTextField.textContent += button.textContent;
+                // currentTextField.textContent = currentTextField.textContent == "0" ? button.textContent : currentTextField.textContent += button.textContent;
+                if(currentTextField.textContent == "0"){
+                    currentTextField.textContent = button.textContent;
+                }else{
+                    currentTextField.textContent += button.textContent;
+                }
             }
             secondNumber = parseInt(currentTextField.textContent);
             firstNumber = parseInt(previousTextField.textContent);
@@ -130,9 +139,9 @@ function displayOutput() {
     })
 
     equalsButton.addEventListener("click", () => {
-        if(toggleEquals){
+        if (toggleEquals) {
             firstNumber = parseFloat(currentTextField.textContent);
-        }else{
+        } else {
             firstNumber = parseFloat(previousTextField.textContent);
             secondNumber = parseFloat(currentTextField.textContent);
         }
