@@ -57,27 +57,30 @@ function compute() {
         currentTextField.textContent = answer;
     } else if (operator == "÷") {
         answer = divide(previousNumber, currentNumber);
-        if(currentNumber == 0){
+        if (currentNumber == 0 && previousNumber != 0) {
+            currentTextField.textContent = "Cannot divide by zero";
             resetCalculator();
-        }else{
+        }else if(currentNumber == 0 && previousNumber == 0){
+            currentTextField.textContent = "Result is undefined";
+            resetCalculator();
+        }else {
             currentTextField.textContent = answer;
         }
-    }else if(operator == undefined){
+    } else if (operator == undefined) {
         previousTextField.textContent = parseFloat(currentTextField.textContent) + "" + "=";
     }
-    if(operator!=undefined){
+    if (operator != undefined) {
         previousTextField.textContent = `${previousNumber} ${operator} ${currentNumber} =`;
     }
 }
 
 // When answer is infinity
-function resetCalculator(){
-    currentTextField.textContent = "Cannot divide by zero";
-    allButtons.forEach((button)=>{
-        if(!button.classList.contains("number") && !button.classList.contains("clearButton") && !button.classList.contains("equals")){
+function resetCalculator() {
+    allButtons.forEach((button) => {
+        if (!button.classList.contains("number") && !button.classList.contains("clearButton") && !button.classList.contains("equals")) {
             button.setAttribute("disabled", "");
-        }else{
-            button.addEventListener("click", ()=> location.reload());
+        } else {
+            button.addEventListener("click", () => location.reload());
         }
     })
 }
@@ -86,15 +89,15 @@ function displayOutput() {
     let newNumber = false;
     let toggleCompute = false;
     let toggleEquals = false;
-    currentTextField.textContent = "0";  
+    currentTextField.textContent = "0";
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            if(currentTextField.textContent == "0" && button.textContent == "."){
+            if (currentTextField.textContent == "0" && button.textContent == ".") {
                 currentTextField.textContent += button.textContent;
             }
-            if(currentTextField.textContent.includes(".") && button.textContent == ".") return;
+            if (currentTextField.textContent.includes(".") && button.textContent == ".") return;
             if (newNumber) {
-                if(toggleEquals){
+                if (toggleEquals) {
                     previousTextField.textContent = "";
                     operator = null;
                     toggleEquals = false;
@@ -117,7 +120,7 @@ function displayOutput() {
             if (isNaN(previousNumber)) {
                 previousNumber = "";
             }
-            if(toggleCompute){
+            if (toggleCompute) {
                 compute();
                 toggleCompute = false;
             }
@@ -137,25 +140,25 @@ function displayOutput() {
     })
 }
 
-function deleteNumber(){
+function deleteNumber() {
     currentTextField.textContent = currentTextField.textContent.slice(0, -1);
-    if(currentTextField.textContent == ""){
+    if (currentTextField.textContent == "") {
         currentTextField.textContent = 0;
     }
 }
 
-function clearAll(){
+function clearAll() {
     currentTextField.textContent = "0";
     previousTextField.textContent = "";
     operator = null;
 }
 
-function clearEntry(){
+function clearEntry() {
     currentTextField.textContent = "0";
 }
 
-function displayZero(){
-    if(currentTextField.textContent == ""){
+function displayZero() {
+    if (currentTextField.textContent == "") {
         currentTextField.textContent = "0";
     }
 }
