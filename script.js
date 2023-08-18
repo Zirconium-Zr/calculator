@@ -12,6 +12,7 @@ const plusMinusButton = document.querySelector(".plusMinus");
 const percentageButton = document.querySelector(".percentage");
 const reciprocalButton = document.querySelector(".reciprocal");
 const squareButton = document.querySelector(".square");
+const squareRootButton = document.querySelector(".squareRoot");
 let firstNumber;
 let secondNumber;
 let operator;
@@ -51,6 +52,7 @@ function operate(firstNumber, secondNumber, operator) {
         default:
             if(!flag){
                 previousTextField.textContent = `${parseFloat(currentTextField.textContent)} =`;
+                currentTextField.textContent = parseFloat(currentTextField.textContent);
             }else{
                 previousTextField.textContent = `${previousTextField.textContent} =`;
             }
@@ -223,16 +225,25 @@ function getReciprocal() {
     answer = (1 / number);
     currentTextField.textContent = answer;
     previousTextField.textContent = `1/(${previousTextField.textContent})`;
-    previousTextField.textContent = previousTextField.textContent.replace("1/()", `1/(${number})`);
+    previousTextField.textContent = previousTextField.textContent.replace("1/()", `1/(${parseFloat(number)})`);
 }
 
-function squareNumber(){
+function getSquareNumber(){
     flag = true;
     let number = currentTextField.textContent;
     answer = Math.pow(number, 2);
     currentTextField.textContent = answer;
     previousTextField.textContent = `sqr(${previousTextField.textContent})`;
-    previousTextField.textContent = previousTextField.textContent.replace("sqr()", `sqr(${number})`);
+    previousTextField.textContent = previousTextField.textContent.replace("sqr()", `sqr(${parseFloat(number)})`);
+}
+
+function getSquareRoot(){
+    flag = true;
+    let number = currentTextField.textContent;
+    answer = Math.sqrt(number);
+    currentTextField.textContent = answer;
+    previousTextField.textContent = `√(${previousTextField.textContent})`;
+    previousTextField.textContent = previousTextField.textContent.replace("√()", `√(${number})`);
 }
 
 deleteButton.addEventListener("click", deleteNumber);
@@ -241,6 +252,7 @@ clearEntryButton.addEventListener("click", clearEntry);
 plusMinusButton.addEventListener("click", changeSign);
 percentageButton.addEventListener("click", calculatePercent);
 reciprocalButton.addEventListener("click", getReciprocal);
-squareButton.addEventListener("click", squareNumber);
+squareButton.addEventListener("click", getSquareNumber);
+squareRootButton.addEventListener("click", getSquareRoot);
 
 displayOutput();
