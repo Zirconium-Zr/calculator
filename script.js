@@ -9,6 +9,7 @@ const deleteButton = document.querySelector(".delete");
 const clearAllButton = document.querySelector(".clearAll");
 const clearEntryButton = document.querySelector(".clearEntry");
 const plusMinusButton = document.querySelector(".plusMinus");
+const percentageButton = document.querySelector(".percentage");
 let firstNumber;
 let secondNumber;
 let operator;
@@ -44,7 +45,7 @@ function operate(firstNumber, secondNumber, operator) {
                 currentTextField.textContent = answer;
             }
             break;
-            default:
+        default:
             previousTextField.textContent = `${parseFloat(currentTextField.textContent)} =`;
     }
     if (operator != undefined) {
@@ -82,9 +83,12 @@ function displayOutput() {
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
             if (newNumber) {
+                // To remove current text field values when dot (".") is pressed
                 currentTextField.textContent = "";
             }
+
             if (button.textContent == "." && currentTextField.textContent.includes(".")) return;
+
             if (newNumber) {
                 if (toggleEquals) {
                     operator = null;
@@ -180,9 +184,23 @@ function changeSign() {
     }
 }
 
+function calculatePercent() {
+    answer = (firstNumber * secondNumber) / 100;
+    if (isNaN(firstNumber) || operator == undefined) {
+        previousTextField.textContent = 0;
+        currentTextField.textContent = 0;
+    }else{
+        console.log(firstNumber);
+        console.log(secondNumber);
+        currentTextField.textContent = answer;
+        previousTextField.textContent = `${firstNumber} ${operator} ${answer}`;
+    }
+}
+
 deleteButton.addEventListener("click", deleteNumber);
 clearAllButton.addEventListener("click", clearAll);
 clearEntryButton.addEventListener("click", clearEntry);
 plusMinusButton.addEventListener("click", changeSign);
+percentageButton.addEventListener("click", calculatePercent);
 
 displayOutput();
