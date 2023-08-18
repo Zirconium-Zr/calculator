@@ -21,6 +21,7 @@ let newNumber = false;
 let toggleCompute = false;
 let toggleEquals = false;
 let flag = false;
+let isOn = false;
 
 function operate(firstNumber, secondNumber, operator) {
     switch (operator) {
@@ -130,6 +131,7 @@ function displayOutput() {
     //Display operator
     operatorButtons.forEach((button) => {
         button.addEventListener("click", () => {
+            isOn = true;
             newNumber = true;
             toggleEquals = false;
             if (isNaN(firstNumber)) {
@@ -245,7 +247,13 @@ function getSquareNumber() {
     let number = currentTextField.textContent;
     answer = Math.pow(number, 2);
     currentTextField.textContent = answer;
-    previousTextField.textContent = `sqr(${previousTextField.textContent})`;
+
+    if(isOn){
+        previousTextField.textContent += ` sqr(${previousTextField.textContent.slice(0,-1).trim()})`;
+        isOn = false;
+    }else{
+        previousTextField.textContent = `sqr(${previousTextField.textContent})`;
+    }
 
     if (toggleEquals) {
         previousTextField.textContent = previousTextField.textContent.replace(`sqr(${firstNumber} ${operator} ${secondNumber} =)`, `sqr(${parseFloat(number)})`);
