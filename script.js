@@ -185,16 +185,24 @@ function changeSign() {
 }
 
 function calculatePercent() {
-    answer = (firstNumber * secondNumber) / 100;
+    // Perform calculation
+    if (toggleEquals) {
+        answer = (answer * answer) / 100;
+        previousTextField.textContent = answer;
+    } else {
+        answer = (firstNumber * secondNumber) / 100;
+        previousTextField.textContent = `${firstNumber} ${operator} ${answer}`;
+    }
+
+    // Set values and check conditions
     if (isNaN(firstNumber) || operator == undefined) {
         previousTextField.textContent = 0;
         currentTextField.textContent = 0;
-    }else{
-        console.log(firstNumber);
-        console.log(secondNumber);
+    } else {
+        secondNumber = answer;
         currentTextField.textContent = answer;
-        previousTextField.textContent = `${firstNumber} ${operator} ${answer}`;
     }
+    newNumber = true;
 }
 
 deleteButton.addEventListener("click", deleteNumber);
