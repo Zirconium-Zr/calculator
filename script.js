@@ -199,6 +199,7 @@ function calculatePercent() {
         previousTextField.textContent = 0;
         currentTextField.textContent = 0;
     } else {
+        // Store new answer to secondNumber variable so that computation does not happen with old answer
         secondNumber = answer;
         currentTextField.textContent = answer;
     }
