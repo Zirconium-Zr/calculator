@@ -19,6 +19,7 @@ let answer;
 let newNumber = false;
 let toggleCompute = false;
 let toggleEquals = false;
+let flag = false;
 
 function operate(firstNumber, secondNumber, operator) {
     switch (operator) {
@@ -48,7 +49,11 @@ function operate(firstNumber, secondNumber, operator) {
             }
             break;
         default:
-            previousTextField.textContent = `${parseFloat(currentTextField.textContent)} =`;
+            if(!flag){
+                previousTextField.textContent = `${parseFloat(currentTextField.textContent)} =`;
+            }else{
+                previousTextField.textContent = `${previousTextField.textContent} =`;
+            }
     }
     if (operator != undefined) {
         previousTextField.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
@@ -213,6 +218,7 @@ function calculatePercent() {
 }
 
 function getReciprocal() {
+    flag = true;
     let number = currentTextField.textContent;
     answer = (1 / number);
     currentTextField.textContent = answer;
@@ -221,6 +227,7 @@ function getReciprocal() {
 }
 
 function squareNumber(){
+    flag = true;
     let number = currentTextField.textContent;
     answer = Math.pow(number, 2);
     currentTextField.textContent = answer;
