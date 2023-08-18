@@ -11,6 +11,7 @@ const clearEntryButton = document.querySelector(".clearEntry");
 const plusMinusButton = document.querySelector(".plusMinus");
 const percentageButton = document.querySelector(".percentage");
 const reciprocalButton = document.querySelector(".reciprocal");
+const squareButton = document.querySelector(".square");
 let firstNumber;
 let secondNumber;
 let operator;
@@ -182,7 +183,7 @@ function changeSign() {
     if (toggleEquals) {
         previousTextField.textContent = `negate(${previousTextField.textContent})`;
 
-        previousTextField.textContent = previousTextField.textContent.replace(`${firstNumber} ${operator} ${secondNumber} =`, answer);
+        previousTextField.textContent = previousTextField.textContent.replace(`${firstNumber} ${operator} ${secondNumber}`, answer);
 
         previousTextField.textContent = previousTextField.textContent.replace("=", "");
         previousTextField.textContent = previousTextField.textContent.replace(/\s/g, "");
@@ -212,15 +213,15 @@ function calculatePercent() {
 }
 
 function getReciprocal() {
-    let flag = false;
     previousTextField.textContent = `1/(${currentTextField.textContent})`;
     answer = (1 / currentTextField.textContent);
     currentTextField.textContent = answer;
-    flag = true;
-    if (flag) {
-        previousTextField.textContent = previousTextField.textContent.replace(`1/(${currentTextField.textContent})`, `1/${answer}`);
-        flag = false;
-    }
+}
+
+function squareNumber(){
+    answer = Math.pow(currentTextField.textContent, 2);
+    currentTextField.textContent = answer;
+    previousTextField.textContent = `sqr(${answer})`;
 }
 
 deleteButton.addEventListener("click", deleteNumber);
@@ -229,5 +230,6 @@ clearEntryButton.addEventListener("click", clearEntry);
 plusMinusButton.addEventListener("click", changeSign);
 percentageButton.addEventListener("click", calculatePercent);
 reciprocalButton.addEventListener("click", getReciprocal);
+squareButton.addEventListener("click", squareNumber);
 
 displayOutput();
