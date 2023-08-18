@@ -183,8 +183,10 @@ function displayZero() {
 
 function changeSign() {
     currentTextField.textContent *= -1;
-    previousTextField.textContent = toggleEquals ? `negate(${previousTextField.textContent})` : `negate(${currentTextField.textContent})`
-    // previousTextField.textContent = currentTextField.textContent * -1;
+    if(toggleEquals){
+        previousTextField.textContent = `negate(${previousTextField.textContent})`;
+        previousTextField.textContent = previousTextField.textContent.replace(`${firstNumber} ${operator} ${secondNumber} =`, answer);
+    }
 }
 
 deleteButton.addEventListener("click", deleteNumber);
