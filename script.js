@@ -33,6 +33,7 @@ function operate(firstNumber, secondNumber, operator) {
             break;
         case "÷":
             answer = divide(parseFloat(firstNumber), parseFloat(secondNumber));
+            // When user divides by zero
             if (secondNumber == 0 && firstNumber != 0) {
                 currentTextField.textContent = "Cannot divide by zero";
                 resetCalculator();
@@ -43,7 +44,7 @@ function operate(firstNumber, secondNumber, operator) {
                 currentTextField.textContent = answer;
             }
             break;
-        default:
+            default:
             previousTextField.textContent = `${parseFloat(currentTextField.textContent)} =`;
     }
     if (operator != undefined) {
@@ -77,6 +78,7 @@ function resetCalculator() {
 
 function displayOutput() {
     currentTextField.textContent = "0";
+    // Display numbers
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
             if (newNumber) {
@@ -111,6 +113,7 @@ function displayOutput() {
         })
     })
 
+    //Display operator
     operatorButtons.forEach((button) => {
         button.addEventListener("click", () => {
             newNumber = true;
@@ -127,6 +130,7 @@ function displayOutput() {
         })
     })
 
+    // Display answer when '=' is pressed
     equalsButton.addEventListener("click", () => {
         if (toggleEquals) {
             firstNumber = parseFloat(currentTextField.textContent);
@@ -140,6 +144,7 @@ function displayOutput() {
     })
 }
 
+// Backspace
 function deleteNumber() {
     currentTextField.textContent = currentTextField.textContent.slice(0, -1);
     if (currentTextField.textContent == "") {
@@ -147,22 +152,26 @@ function deleteNumber() {
     }
 }
 
+// AC - clear everything on screen
 function clearAll() {
     currentTextField.textContent = "0";
     previousTextField.textContent = "";
     operator = null;
 }
 
+// Clear just the entry field/ current text field
 function clearEntry() {
     currentTextField.textContent = "0";
 }
 
+// Don't let current text field be empty
 function displayZero() {
     if (currentTextField.textContent == "") {
         currentTextField.textContent = "0";
     }
 }
 
+// Positive to negative and vice-versa
 function changeSign() {
     currentTextField.textContent *= -1;
     if (toggleEquals) {
