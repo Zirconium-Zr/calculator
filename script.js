@@ -55,6 +55,7 @@ function operate(firstNumber, secondNumber, operator) {
                 currentTextField.textContent = parseFloat(currentTextField.textContent);
             } else {
                 previousTextField.textContent = `${previousTextField.textContent} =`;
+                flag = false;
             }
     }
     if (operator != undefined) {
@@ -231,7 +232,12 @@ function getReciprocal() {
     }
     currentTextField.textContent = answer;
     previousTextField.textContent = `1/(${previousTextField.textContent})`;
-    previousTextField.textContent = previousTextField.textContent.replace("1/()", `1/(${parseFloat(number)})`);
+
+    if (toggleEquals) {
+        previousTextField.textContent = previousTextField.textContent.replace(`1/(${firstNumber} ${operator} ${secondNumber} =)`, `1/(${parseFloat(number)})`);
+    } else {
+        previousTextField.textContent = previousTextField.textContent.replace("1/()", `1/(${parseFloat(number)})`);
+    }
 }
 
 function getSquareNumber() {
@@ -240,7 +246,12 @@ function getSquareNumber() {
     answer = Math.pow(number, 2);
     currentTextField.textContent = answer;
     previousTextField.textContent = `sqr(${previousTextField.textContent})`;
-    previousTextField.textContent = previousTextField.textContent.replace("sqr()", `sqr(${parseFloat(number)})`);
+
+    if (toggleEquals) {
+        previousTextField.textContent = previousTextField.textContent.replace(`sqr(${firstNumber} ${operator} ${secondNumber} =)`, `sqr(${parseFloat(number)})`);
+    } else {
+        previousTextField.textContent = previousTextField.textContent.replace(`sqr()`, `sqr(${parseFloat(number)})`);
+    }
 }
 
 function getSquareRoot() {
@@ -249,7 +260,12 @@ function getSquareRoot() {
     answer = Math.sqrt(number);
     currentTextField.textContent = answer;
     previousTextField.textContent = `√(${previousTextField.textContent})`;
-    previousTextField.textContent = previousTextField.textContent.replace("√()", `√(${number})`);
+    
+    if (toggleEquals) {
+        previousTextField.textContent = previousTextField.textContent.replace(`√(${firstNumber} ${operator} ${secondNumber} =)`, `√(${number})`);
+    }else{
+        previousTextField.textContent = previousTextField.textContent.replace("√()", `√(${number})`);
+    }
 }
 
 deleteButton.addEventListener("click", deleteNumber);
