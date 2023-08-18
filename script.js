@@ -248,10 +248,10 @@ function getSquareNumber() {
     answer = Math.pow(number, 2);
     currentTextField.textContent = answer;
 
-    if(isOn){
-        previousTextField.textContent += ` sqr(${previousTextField.textContent.slice(0,-1).trim()})`;
+    if (isOn) {
+        previousTextField.textContent += ` sqr(${previousTextField.textContent.slice(0, -1).trim()})`;
         isOn = false;
-    }else{
+    } else {
         previousTextField.textContent = `sqr(${previousTextField.textContent})`;
     }
 
@@ -265,13 +265,20 @@ function getSquareNumber() {
 function getSquareRoot() {
     flag = true;
     let number = currentTextField.textContent;
+    if(isOn){
+        previousTextField.textContent = currentTextField.textContent;
+    }
     answer = Math.sqrt(number);
     currentTextField.textContent = answer;
     previousTextField.textContent = `√(${previousTextField.textContent})`;
-    
+
     if (toggleEquals) {
-        previousTextField.textContent = previousTextField.textContent.replace(`√(${firstNumber} ${operator} ${secondNumber} =)`, `√(${number})`);
-    }else{
+        previousTextField.textContent = previousTextField.textContent.replace("=", "");
+        previousTextField.textContent = previousTextField.textContent.replace(/\s/g, "");
+
+        previousTextField.textContent = previousTextField.textContent.replace(`√(${firstNumber}${operator}${secondNumber})`, `√(${number})`);
+
+    } else {
         previousTextField.textContent = previousTextField.textContent.replace("√()", `√(${number})`);
     }
 }
