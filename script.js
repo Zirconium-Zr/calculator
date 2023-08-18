@@ -20,38 +20,6 @@ let toggleEquals = false;
 function operate(firstNumber, secondNumber, operator) {
     switch (operator) {
         case "+":
-            add(firstNumber, secondNumber);
-            break;
-        case "−":
-            subtract(firstNumber, secondNumber);
-            break;
-        case "×":
-            multiply(firstNumber, secondNumber);
-            break;
-        case "÷":
-            divide(firstNumber, secondNumber);
-            break;
-    }
-}
-
-function add(x, y) {
-    return (x + y);
-}
-function subtract(x, y) {
-    return (x - y);
-}
-function multiply(x, y) {
-    return (x * y);
-}
-function divide(x, y) {
-    return (x / y);
-}
-
-operate(firstNumber, secondNumber, operator);
-
-function compute() {
-    switch (operator) {
-        case "+":
             answer = add(parseFloat(firstNumber), parseFloat(secondNumber));
             currentTextField.textContent = answer;
             break;
@@ -74,12 +42,26 @@ function compute() {
             } else {
                 currentTextField.textContent = answer;
             }
+            break;
         default:
             previousTextField.textContent = `${parseFloat(currentTextField.textContent)} =`;
     }
     if (operator != undefined) {
         previousTextField.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
     }
+}
+
+function add(x, y) {
+    return (x + y);
+}
+function subtract(x, y) {
+    return (x - y);
+}
+function multiply(x, y) {
+    return (x * y);
+}
+function divide(x, y) {
+    return (x / y);
 }
 
 // When answer is infinity
@@ -137,7 +119,7 @@ function displayOutput() {
                 firstNumber = "";
             }
             if (toggleCompute) {
-                compute();
+                operate(firstNumber, secondNumber, operator);
                 toggleCompute = false;
             }
             previousTextField.textContent = `${currentTextField.textContent} ${button.textContent}`;
@@ -152,7 +134,7 @@ function displayOutput() {
             firstNumber = parseFloat(previousTextField.textContent);
             secondNumber = parseFloat(currentTextField.textContent);
         }
-        compute();
+        operate(firstNumber, secondNumber, operator);
         newNumber = true;
         toggleEquals = true;
     })
@@ -183,7 +165,7 @@ function displayZero() {
 
 function changeSign() {
     currentTextField.textContent *= -1;
-    if(toggleEquals){
+    if (toggleEquals) {
         previousTextField.textContent = `negate(${previousTextField.textContent})`;
         previousTextField.textContent = previousTextField.textContent.replace(`${firstNumber} ${operator} ${secondNumber} =`, answer);
     }
