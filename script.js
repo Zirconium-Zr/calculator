@@ -50,10 +50,10 @@ function operate(firstNumber, secondNumber, operator) {
             }
             break;
         default:
-            if(!flag){
+            if (!flag) {
                 previousTextField.textContent = `${parseFloat(currentTextField.textContent)} =`;
                 currentTextField.textContent = parseFloat(currentTextField.textContent);
-            }else{
+            } else {
                 previousTextField.textContent = `${previousTextField.textContent} =`;
             }
     }
@@ -223,12 +223,18 @@ function getReciprocal() {
     flag = true;
     let number = currentTextField.textContent;
     answer = (1 / number);
+    if (answer == Infinity) {
+        previousTextField.textContent = `1/(${number})`;
+        currentTextField.textContent = "Cannot divide by zero";
+        resetCalculator();
+        return;
+    }
     currentTextField.textContent = answer;
     previousTextField.textContent = `1/(${previousTextField.textContent})`;
     previousTextField.textContent = previousTextField.textContent.replace("1/()", `1/(${parseFloat(number)})`);
 }
 
-function getSquareNumber(){
+function getSquareNumber() {
     flag = true;
     let number = currentTextField.textContent;
     answer = Math.pow(number, 2);
@@ -237,7 +243,7 @@ function getSquareNumber(){
     previousTextField.textContent = previousTextField.textContent.replace("sqr()", `sqr(${parseFloat(number)})`);
 }
 
-function getSquareRoot(){
+function getSquareRoot() {
     flag = true;
     let number = currentTextField.textContent;
     answer = Math.sqrt(number);
