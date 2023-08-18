@@ -213,15 +213,19 @@ function calculatePercent() {
 }
 
 function getReciprocal() {
-    previousTextField.textContent = `1/(${currentTextField.textContent})`;
-    answer = (1 / currentTextField.textContent);
+    let number = currentTextField.textContent;
+    answer = (1 / number);
     currentTextField.textContent = answer;
+    previousTextField.textContent = `1/(${previousTextField.textContent})`;
+    previousTextField.textContent = previousTextField.textContent.replace("1/()", `1/(${number})`);
 }
 
 function squareNumber(){
-    answer = Math.pow(currentTextField.textContent, 2);
+    let number = currentTextField.textContent;
+    answer = Math.pow(number, 2);
     currentTextField.textContent = answer;
-    previousTextField.textContent = `sqr(${answer})`;
+    previousTextField.textContent = `sqr(${previousTextField.textContent})`;
+    previousTextField.textContent = previousTextField.textContent.replace("sqr()", `sqr(${number})`);
 }
 
 deleteButton.addEventListener("click", deleteNumber);
