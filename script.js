@@ -21,9 +21,9 @@ window.onload = () => {
 
 let firstNumber;
 let secondNumber;
-let operator;
+let operatorSign;
 let answer;
-let newNumber = false;
+let inputNewNumber = false;
 let toggleCompute = false;
 let toggleEquals = false;
 let selectSpecialKey = false;
@@ -150,8 +150,10 @@ operandButtons.forEach((button) => {
 })
 
 operatorButtons.forEach((button) => {
-    button.addEventListener("click", () => displayNumber(button.textContent));
+    button.addEventListener("click", () => displayOperator(button.textContent));
 })
+
+equalsButton.addEventListener("click", displayAnswer);
 
 document.addEventListener("keydown", (event) => {
     if (event.key >= 0 && event.key <= 9) {
@@ -161,30 +163,69 @@ document.addEventListener("keydown", (event) => {
 
 function displayNumber(number) {
     if (currentTextField.textContent.includes(".") && number == ".") return;
-    if (currentTextField.textContent == "0") {
-        if (number == ".") {
-            currentTextField.textContent += number;
-        } else {
-            currentTextField.textContent = number;
-        }
+    if (inputNewNumber) {
+        currentTextField.textContent = number;
+        toggleCompute = true;
+        inputNewNumber = false;
+        console.log("ok");
     } else {
-        currentTextField.textContent += number;
+        if (currentTextField.textContent == "0") {
+            if (number == ".") {
+                currentTextField.textContent += number;
+            } else {
+                currentTextField.textContent = number;
+            }
+        } else {
+            currentTextField.textContent += number;
+        }
     }
+
+    firstNumber = parseFloat(previousTextField.textContent);
+    secondNumber = parseFloat(currentTextField.textContent);
 }
+
+function displayOperator(operator) {
+    console.log(operator);
+    if(toggleCompute){
+        operate(firstNumber, secondNumber, operatorSign);
+        toggleCompute = false;
+    }
+    inputNewNumber = true;
+    if (isNaN(firstNumber)) {
+        firstNumber = "";
+    }
+    operatorSign = operator;
+    previousTextField.textContent = `${currentTextField.textContent} ${operator}`;
+}
+
+function displayAnswer(){
+    if (toggleEquals) {
+        firstNumber = parseFloat(currentTextField.textContent);
+    } else {
+        firstNumber = parseFloat(previousTextField.textContent);
+        secondNumber = parseFloat(currentTextField.textContent);
+    }
+    operate(firstNumber, secondNumber, operatorSign);
+    inputNewNumber = true;
+    toggleEquals = true;
+
+    createHistoryDiv();
+}
+
 
 function displayOutput() {
     currentTextField.textContent = "0";
     // Display numbers
     operandButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            if (newNumber) {
+            if (inputNewNumber) {
                 // To remove current text field values when dot (".") is pressed
                 currentTextField.textContent = "";
             }
 
             if (button.textContent == "." && currentTextField.textContent.includes(".")) return;
 
-            if (newNumber) {
+            if (inputNewNumber) {
                 if (toggleEquals) {
                     operator = null;
                     toggleEquals = false;
@@ -195,7 +236,7 @@ function displayOutput() {
                 } else {
                     currentTextField.textContent = button.textContent;
                 }
-                newNumber = false;
+                inputNewNumber = false;
             } else {
                 if (currentTextField.textContent == "0") {
                     if (button.textContent == ".") {
@@ -219,11 +260,14 @@ function displayOutput() {
     operatorButtons.forEach((button) => {
         button.addEventListener("click", () => {
             isOn = true;
-            newNumber = true;
+            inputNewNumber = true;
             toggleEquals = false;
             if (isNaN(firstNumber)) {
                 firstNumber = "";
             }
+            console.log(firstNumber);
+            console.log(secondNumber);
+            console.log(operator);
             if (toggleCompute) {
                 operate(firstNumber, secondNumber, operator);
                 toggleCompute = false;
@@ -245,7 +289,7 @@ function displayOutput() {
             secondNumber = parseFloat(currentTextField.textContent);
         }
         operate(firstNumber, secondNumber, operator);
-        newNumber = true;
+        inputNewNumber = true;
         toggleEquals = true;
 
         createHistoryDiv();
@@ -311,7 +355,7 @@ function calculatePercent() {
         secondNumber = answer;
         currentTextField.textContent = answer;
     }
-    newNumber = true;
+    inputNewNumber = true;
 }
 
 function getReciprocal() {
