@@ -32,7 +32,7 @@ let isOn = false;
 function createHistoryDiv() {
     const historyContent = document.createElement("div");
     historyContent.classList.add("historyContent");
-    historyContent.textContent = `${previousTextField.textContent} ${currentTextField.textContent}`;
+    historyContent.innerHTML = `<span style="color:rgb(171, 171, 171);background-color:transparent">${previousTextField.textContent}</span> <br> <p style="font-size:21px; font-weight:600;background-color:transparent">${currentTextField.textContent}</p`;
     dummyText.remove();
     storedContent.appendChild(historyContent);
     storedContent.appendChild(clearMemoryButton);
