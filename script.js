@@ -246,7 +246,7 @@ function deleteNumber() {
 function clearAll() {
     currentTextField.textContent = "0";
     previousTextField.textContent = "";
-    operator = null;
+    operatorSign = null;
 }
 
 // Clear just the entry field/ current text field
@@ -302,7 +302,6 @@ function getReciprocal() {
     // Remove trailing operator sign
     if (selectOperatorKey) {
         previousTextField.textContent = currentTextField.textContent;
-        console.log(firstNumber);
         selectOperatorKey = false;
     }
     answer = (1 / number);
@@ -319,7 +318,7 @@ function getReciprocal() {
         previousTextField.textContent = previousTextField.textContent.replace("=", "");
         previousTextField.textContent = previousTextField.textContent.replace(/\s/g, "");
 
-        previousTextField.textContent = previousTextField.textContent.replace(`1/(${firstNumber} ${operator} ${secondNumber} =)`, `1/(${parseFloat(number)})`);
+        previousTextField.textContent = previousTextField.textContent.replace(`1/(${firstNumber} ${operatorSign} ${secondNumber} =)`, `1/(${parseFloat(number)})`);
     } else {
         previousTextField.textContent = previousTextField.textContent.replace("1/()", `1/(${parseFloat(number)})`);
     }
@@ -341,7 +340,7 @@ function getSquareNumber() {
         previousTextField.textContent = previousTextField.textContent.replace("=", "");
         previousTextField.textContent = previousTextField.textContent.replace(/\s/g, "");
 
-        previousTextField.textContent = previousTextField.textContent.replace(`sqr(${firstNumber} ${operator} ${secondNumber} =)`, `sqr(${parseFloat(number)})`);
+        previousTextField.textContent = previousTextField.textContent.replace(`sqr(${firstNumber} ${operatorSign} ${secondNumber} =)`, `sqr(${parseFloat(number)})`);
     } else {
         previousTextField.textContent = previousTextField.textContent.replace(`sqr()`, `sqr(${parseFloat(number)})`);
     }
@@ -363,7 +362,7 @@ function getSquareRoot() {
         previousTextField.textContent = previousTextField.textContent.replace("=", "");
         previousTextField.textContent = previousTextField.textContent.replace(/\s/g, "");
 
-        previousTextField.textContent = previousTextField.textContent.replace(`√(${firstNumber}${operator}${secondNumber})`, `√(${number})`);
+        previousTextField.textContent = previousTextField.textContent.replace(`√(${firstNumber}${operatorSign}${secondNumber})`, `√(${number})`);
 
     } else {
         previousTextField.textContent = previousTextField.textContent.replace("√()", `√(${parseFloat(number)})`);
@@ -384,4 +383,3 @@ allButtons.forEach((button) => {
 })
 
 displayMemory();
-// displayOutput();
