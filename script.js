@@ -170,6 +170,9 @@ function displayNumber(number) {
     if (inputNewNumber) {
         if (toggleEquals) {
             operatorSign = null;
+            if(number == "."){
+                previousTextField.textContent = "";
+            }
             toggleEquals = false;
         }
         toggleCompute = true;
