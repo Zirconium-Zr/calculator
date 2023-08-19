@@ -14,6 +14,7 @@ const reciprocalButton = document.querySelector(".reciprocal");
 const squareButton = document.querySelector(".square");
 const squareRootButton = document.querySelector(".squareRoot");
 const storedContent = document.querySelector(".stored-content");
+const calculatorScreen = document.querySelector(".screen");
 let firstNumber;
 let secondNumber;
 let operator;
@@ -162,10 +163,11 @@ function displayOutput() {
         newNumber = true;
         toggleEquals = true;
 
-        const contents = document.createElement("div");
-        contents.classList.add("historyContent");
-        contents.textContent = `${previousTextField.textContent} ${currentTextField.textContent}`;
-        storedContent.appendChild(contents);
+        const historyContent = document.createElement("div");
+        historyContent.classList.add("historyContent");
+        historyContent.textContent = `${previousTextField.textContent} ${currentTextField.textContent}`;
+        storedContent.appendChild(historyContent);
+        console.log(calculatorScreen.textContent);
     })
 }
 
