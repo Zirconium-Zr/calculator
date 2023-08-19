@@ -67,6 +67,7 @@ sup{
     font-size: 14px;
     padding: 8px 0px;
     flex-direction: column;
+    margin-right: 5px;
 }
 
 .memory-header{
@@ -82,10 +83,15 @@ sup{
     align-items: end;
     height: 3.5rem;
     margin-bottom: 1rem;
+    font-size: 14px;
 }
 
 .historyContent:hover{
     background-color: rgb(184, 184, 184, 0.1);
+}
+
+.stored-content{
+    text-align: end;
 }
 
 [special-key] {
@@ -120,4 +126,10 @@ sup{
 
 [equals]:hover {
     opacity: 0.8;
+}
+
+.clearMemoButton{
+    bottom: 0;
+    background-color: rgba(91, 91, 91, 0.9);
+    padding: 0.2rem 0.5rem;
 }
