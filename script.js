@@ -175,6 +175,9 @@ function displayOutput() {
                         currentTextField.textContent = button.textContent;
                     }
                 } else {
+                    if(currentTextField.textContent.length >= 16){
+                        return;
+                    }
                     currentTextField.textContent += button.textContent;
                 }
             }
@@ -368,6 +371,10 @@ allButtons.forEach((button) => {
         if (button.classList.contains("squareRoot")) getSquareRoot();
     })
 })
+
+// document.addEventListener("keypress", ()=>{
+
+// })
 
 displayMemory();
 displayOutput();
