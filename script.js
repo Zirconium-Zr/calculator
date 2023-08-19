@@ -156,10 +156,21 @@ operatorButtons.forEach((button) => {
 equalsButton.addEventListener("click", displayAnswer);
 
 document.addEventListener("keydown", (event) => {
-    if (event.key >= 0 && event.key <= 9) {
+    if (event.key >= 0 && event.key <= 9 || event.key == ".") {
         displayNumber(event.key);
     }
+
+    if(event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/"){
+        displayOperator(convertOperator(event.key));
+    }
 })
+
+function convertOperator(keyboardInput){
+    if(keyboardInput === "+") return "+";
+    if(keyboardInput === "-") return "−";
+    if(keyboardInput === "*") return "×";
+    if(keyboardInput === "/") return "÷";
+}
 
 function displayNumber(number) {
     if (inputNewNumber) {
