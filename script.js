@@ -26,8 +26,8 @@ let answer;
 let newNumber = false;
 let toggleCompute = false;
 let toggleEquals = false;
-let flag = false;
-let isOn = false;
+let selectSpecialKey = false;
+let selectOperatorKey = false;
 
 function createHistoryDiv() {
     const historyContent = document.createElement("div");
@@ -106,12 +106,12 @@ function operate(firstNumber, secondNumber, operator) {
             }
             break;
         default:
-            if (!flag) {
+            if (!selectSpecialKey) {
                 previousTextField.textContent = `${parseFloat(currentTextField.textContent)} =`;
                 currentTextField.textContent = parseFloat(currentTextField.textContent);
             } else {
                 previousTextField.textContent = `${previousTextField.textContent} =`;
-                flag = false;
+                selectSpecialKey = false;
             }
     }
     if (operator != undefined) {
@@ -283,7 +283,7 @@ function calculatePercent() {
 }
 
 function getReciprocal() {
-    flag = true;
+    selectSpecialKey = true;
     let number = currentTextField.textContent;
     // Remove trailing operator sign
     if (isOn) {
@@ -312,7 +312,7 @@ function getReciprocal() {
 }
 
 function getSquareNumber() {
-    flag = true;
+    selectSpecialKey = true;
     let number = currentTextField.textContent;
     // Remove trailing operator sign
     if (isOn) {
@@ -334,7 +334,7 @@ function getSquareNumber() {
 }
 
 function getSquareRoot() {
-    flag = true;
+    selectSpecialKey = true;
     let number = currentTextField.textContent;
     // Remove trailing operator sign
     if (isOn) {
