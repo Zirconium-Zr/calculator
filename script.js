@@ -143,6 +143,20 @@ function resetCalculator() {
     })
 }
 
+currentTextField.textContent = "0";
+
+operandButtons.forEach((button)=>{
+    button.addEventListener("click", ()=> displayNumber(button.textContent));
+})
+
+function displayNumber(number){
+    if(currentTextField.textContent == "0"){
+        currentTextField.textContent = number;
+    }else{
+        currentTextField.textContent += number;
+    }
+}
+
 function displayOutput() {
     currentTextField.textContent = "0";
     // Display numbers
@@ -377,4 +391,4 @@ allButtons.forEach((button) => {
 // })
 
 displayMemory();
-displayOutput();
+// displayOutput();
