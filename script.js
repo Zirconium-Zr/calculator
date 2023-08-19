@@ -13,6 +13,7 @@ const memoryButton = document.querySelector(".memory");
 const clearMemoryButton = document.createElement("button");
 
 window.onload = () => {
+    currentTextField.textContent = "0";
     historyButton.click();
     dummyText.style.textAlign = "start";
     clearMemoryButton.classList.add("clearMemoButton");
@@ -142,8 +143,6 @@ function resetCalculator() {
         }
     })
 }
-
-currentTextField.textContent = "0";
 
 operandButtons.forEach((button) => {
     button.addEventListener("click", () => displayNumber(button.textContent));
@@ -378,17 +377,17 @@ allButtons.forEach((button) => {
 
 document.addEventListener("keydown", (event) => {
     if (event.key >= 0 && event.key <= 9 || event.key == ".") displayNumber(event.key);
-    if (event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/") 
-    displayOperator(convertOperator(event.key));
-    if(event.key === "Backspace") deleteNumber();
-    if(event.key === "Enter") displayAnswer();
-    if(event.key === "Escape") clearAll();
-    if(event.key === "r") getReciprocal();
-    if(event.key === "s") getSquareNumber();
-    if(event.key === "q") getSquareRoot();
-    if(event.key === "e") clearEntry();
-    if(event.key === "n") changeSign();
-    if(event.key === "p") calculatePercent();
+    if (event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/")
+        displayOperator(convertOperator(event.key));
+    if (event.key === "Backspace") deleteNumber();
+    if (event.key === "Enter") displayAnswer();
+    if (event.key === "Escape") clearAll();
+    if (event.key === "r") getReciprocal();
+    if (event.key === "s") getSquareNumber();
+    if (event.key === "q") getSquareRoot();
+    if (event.key === "e") clearEntry();
+    if (event.key === "n") changeSign();
+    if (event.key === "p") calculatePercent();
 })
 
 function convertOperator(keyboardInput) {
