@@ -155,23 +155,6 @@ operatorButtons.forEach((button) => {
 
 equalsButton.addEventListener("click", displayAnswer);
 
-document.addEventListener("keydown", (event) => {
-    if (event.key >= 0 && event.key <= 9 || event.key == ".") {
-        displayNumber(event.key);
-    }
-
-    if(event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/"){
-        displayOperator(convertOperator(event.key));
-    }
-})
-
-function convertOperator(keyboardInput){
-    if(keyboardInput === "+") return "+";
-    if(keyboardInput === "-") return "−";
-    if(keyboardInput === "*") return "×";
-    if(keyboardInput === "/") return "÷";
-}
-
 function displayNumber(number) {
     if (inputNewNumber) {
         // To remove current text field values when dot (".") is pressed
@@ -182,7 +165,7 @@ function displayNumber(number) {
     if (inputNewNumber) {
         if (toggleEquals) {
             operatorSign = null;
-            if(number == "."){
+            if (number == ".") {
                 previousTextField.textContent = "";
             }
             toggleEquals = false;
@@ -220,7 +203,7 @@ function displayOperator(operator) {
     if (isNaN(firstNumber)) {
         firstNumber = "";
     }
-    if(toggleCompute){
+    if (toggleCompute) {
         operate(firstNumber, secondNumber, operatorSign);
         toggleCompute = false;
     }
@@ -231,7 +214,7 @@ function displayOperator(operator) {
     }
 }
 
-function displayAnswer(){
+function displayAnswer() {
     if (toggleEquals) {
         firstNumber = parseFloat(currentTextField.textContent);
     } else {
@@ -278,7 +261,7 @@ function changeSign() {
     if (toggleEquals) {
         previousTextField.textContent = `negate(${previousTextField.textContent})`;
 
-        previousTextField.textContent = previousTextField.textContent.replace(`${firstNumber} ${operator} ${secondNumber}`, answer);
+        previousTextField.textContent = previousTextField.textContent.replace(`${firstNumber} ${operatorSign} ${secondNumber}`, answer);
 
         previousTextField.textContent = previousTextField.textContent.replace("=", "");
         previousTextField.textContent = previousTextField.textContent.replace(/\s/g, "");
@@ -292,11 +275,11 @@ function calculatePercent() {
         previousTextField.textContent = answer;
     } else {
         answer = (firstNumber * secondNumber) / 100;
-        previousTextField.textContent = `${firstNumber} ${operator} ${answer}`;
+        previousTextField.textContent = `${firstNumber} ${operatorSign} ${answer}`;
     }
 
     // Set values and check conditions
-    if (isNaN(firstNumber) || operator == undefined) {
+    if (isNaN(firstNumber) || operatorSign == undefined) {
         previousTextField.textContent = 0;
         currentTextField.textContent = 0;
     } else {
@@ -392,5 +375,27 @@ allButtons.forEach((button) => {
         if (button.classList.contains("squareRoot")) getSquareRoot();
     })
 })
+
+document.addEventListener("keydown", (event) => {
+    if (event.key >= 0 && event.key <= 9 || event.key == ".") displayNumber(event.key);
+    if (event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/") 
+    displayOperator(convertOperator(event.key));
+    if(event.key === "Backspace") deleteNumber();
+    if(event.key === "Enter") displayAnswer();
+    if(event.key === "Escape") clearAll();
+    if(event.key === "r") getReciprocal();
+    if(event.key === "s") getSquareNumber();
+    if(event.key === "q") getSquareRoot();
+    if(event.key === "e") clearEntry();
+    if(event.key === "n") changeSign();
+    if(event.key === "p") calculatePercent();
+})
+
+function convertOperator(keyboardInput) {
+    if (keyboardInput === "+") return "+";
+    if (keyboardInput === "-") return "−";
+    if (keyboardInput === "*") return "×";
+    if (keyboardInput === "/") return "÷";
+}
 
 displayMemory();
