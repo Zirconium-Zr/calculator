@@ -162,12 +162,23 @@ document.addEventListener("keydown", (event) => {
 })
 
 function displayNumber(number) {
+    if (inputNewNumber) {
+        // To remove current text field values when dot (".") is pressed
+        currentTextField.textContent = "";
+    }
     if (currentTextField.textContent.includes(".") && number == ".") return;
     if (inputNewNumber) {
-        currentTextField.textContent = number;
+        if (toggleEquals) {
+            operatorSign = null;
+            toggleEquals = false;
+        }
         toggleCompute = true;
         inputNewNumber = false;
-        console.log("ok");
+        if (number == ".") {
+            currentTextField.textContent = "0" + number;
+        } else {
+            currentTextField.textContent = number;
+        }
     } else {
         if (currentTextField.textContent == "0") {
             if (number == ".") {
@@ -185,17 +196,16 @@ function displayNumber(number) {
 }
 
 function displayOperator(operator) {
-    console.log(operator);
-    if(toggleCompute){
-        operate(firstNumber, secondNumber, operatorSign);
-        toggleCompute = false;
-    }
     inputNewNumber = true;
     if (isNaN(firstNumber)) {
         firstNumber = "";
     }
+    if(toggleCompute){
+        operate(firstNumber, secondNumber, operatorSign);
+        toggleCompute = false;
+    }
     operatorSign = operator;
-    previousTextField.textContent = `${currentTextField.textContent} ${operator}`;
+    previousTextField.textContent = `${currentTextField.textContent} ${operatorSign}`;
 }
 
 function displayAnswer(){
@@ -227,7 +237,7 @@ function displayOutput() {
 
             if (inputNewNumber) {
                 if (toggleEquals) {
-                    operator = null;
+                    operatorSign = null;
                     toggleEquals = false;
                 }
                 toggleCompute = true;
@@ -267,9 +277,9 @@ function displayOutput() {
             }
             console.log(firstNumber);
             console.log(secondNumber);
-            console.log(operator);
+            console.log(operatorSign);
             if (toggleCompute) {
-                operate(firstNumber, secondNumber, operator);
+                operate(firstNumber, secondNumber, operatorSign);
                 toggleCompute = false;
             }
             previousTextField.textContent = `${currentTextField.textContent} ${button.textContent}`;
@@ -288,7 +298,7 @@ function displayOutput() {
             firstNumber = parseFloat(previousTextField.textContent);
             secondNumber = parseFloat(currentTextField.textContent);
         }
-        operate(firstNumber, secondNumber, operator);
+        operate(firstNumber, secondNumber, operatorSign);
         inputNewNumber = true;
         toggleEquals = true;
 
