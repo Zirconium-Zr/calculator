@@ -98,6 +98,7 @@ br {
     padding-bottom: 1rem;
 }
 
+/* Div that store the answers and methods */
 .historyContent {
     width: 100%;
     display: flex;
@@ -117,6 +118,7 @@ br {
     text-align: end;
 }
 
+/* For calculator keys */
 [special-key] {
     background-color: rgb(44, 44, 44);
     font-size: 0.9rem;
@@ -139,6 +141,7 @@ br {
     color: black;
 }
 
+/* hover */
 [special-key]:hover,
 [operators]:hover {
     background-color: rgb(54, 54, 54);
@@ -153,6 +156,23 @@ br {
     opacity: 0.8;
 }
 
+
+/* active */
+[special-key]:active,
+[operators]:active {
+    background-color: rgb(44, 44, 44, 0.7);
+}
+
+[operands]:active,
+.plusMinus:active{
+    background-color: rgb(54, 54, 54, 0.3);
+}
+
+[equals]:active {
+    opacity: 0.5;
+}
+
+/* Clear button for memory section */
 .clearMemoButton {
     bottom: 0;
     background-color: rgba(91, 91, 91, 0.9);
