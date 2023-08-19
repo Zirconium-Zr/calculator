@@ -5,16 +5,10 @@ const specialButtons = document.querySelectorAll("[special-key]");
 const currentTextField = document.querySelector(".big-text");
 const previousTextField = document.querySelector(".small-text");
 const equalsButton = document.querySelector("[equals]");
-const deleteButton = document.querySelector(".delete");
-const clearAllButton = document.querySelector(".clearAll");
-const clearEntryButton = document.querySelector(".clearEntry");
-const plusMinusButton = document.querySelector(".plusMinus");
-const percentageButton = document.querySelector(".percentage");
-const reciprocalButton = document.querySelector(".reciprocal");
-const squareButton = document.querySelector(".square");
-const squareRootButton = document.querySelector(".squareRoot");
 const storedContent = document.querySelector(".stored-content");
 const calculatorScreen = document.querySelector(".screen");
+const dummyText = document.createElement("p");
+
 let firstNumber;
 let secondNumber;
 let operator;
@@ -166,8 +160,8 @@ function displayOutput() {
         const historyContent = document.createElement("div");
         historyContent.classList.add("historyContent");
         historyContent.textContent = `${previousTextField.textContent} ${currentTextField.textContent}`;
+        dummyText.textContent = "";
         storedContent.appendChild(historyContent);
-        console.log(calculatorScreen.textContent);
     })
 }
 
@@ -307,13 +301,23 @@ function getSquareRoot() {
     }
 }
 
-deleteButton.addEventListener("click", deleteNumber);
-clearAllButton.addEventListener("click", clearAll);
-clearEntryButton.addEventListener("click", clearEntry);
-plusMinusButton.addEventListener("click", changeSign);
-percentageButton.addEventListener("click", calculatePercent);
-reciprocalButton.addEventListener("click", getReciprocal);
-squareButton.addEventListener("click", getSquareNumber);
-squareRootButton.addEventListener("click", getSquareRoot);
+function displayMemory(){
+    dummyText.textContent = "There's no history yet";
+    storedContent.appendChild(dummyText);
+}
+displayMemory();
+
+allButtons.forEach((button)=>{
+    button.addEventListener("click", ()=>{
+        if(button.classList.contains("delete")) deleteNumber();
+        if(button.classList.contains("clearAll")) clearAll();
+        if(button.classList.contains("clearEntry")) clearEntry();
+        if(button.classList.contains("percentage")) calculatePercent();
+        if(button.classList.contains("plusMinus")) changeSign();
+        if(button.classList.contains("reciprocal")) getReciprocal();
+        if(button.classList.contains("square")) getSquareNumber();
+        if(button.classList.contains("squareRoot")) getSquareRoot();
+    })
+})
 
 displayOutput();
