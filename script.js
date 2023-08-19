@@ -145,14 +145,29 @@ function resetCalculator() {
 
 currentTextField.textContent = "0";
 
-operandButtons.forEach((button)=>{
-    button.addEventListener("click", ()=> displayNumber(button.textContent));
+operandButtons.forEach((button) => {
+    button.addEventListener("click", () => displayNumber(button.textContent));
 })
 
-function displayNumber(number){
-    if(currentTextField.textContent == "0"){
-        currentTextField.textContent = number;
-    }else{
+operatorButtons.forEach((button) => {
+    button.addEventListener("click", () => displayNumber(button.textContent));
+})
+
+document.addEventListener("keydown", (event) => {
+    if (event.key >= 0 && event.key <= 9) {
+        displayNumber(event.key);
+    }
+})
+
+function displayNumber(number) {
+    if (currentTextField.textContent.includes(".") && number == ".") return;
+    if (currentTextField.textContent == "0") {
+        if (number == ".") {
+            currentTextField.textContent += number;
+        } else {
+            currentTextField.textContent = number;
+        }
+    } else {
         currentTextField.textContent += number;
     }
 }
@@ -189,7 +204,7 @@ function displayOutput() {
                         currentTextField.textContent = button.textContent;
                     }
                 } else {
-                    if(currentTextField.textContent.length >= 16){
+                    if (currentTextField.textContent.length >= 16) {
                         return;
                     }
                     currentTextField.textContent += button.textContent;
