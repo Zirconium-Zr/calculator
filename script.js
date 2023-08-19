@@ -382,7 +382,7 @@ document.addEventListener("keydown", (event) => {
     if (event.key === "Backspace") deleteNumber();
     if (event.key === "Enter") displayAnswer();
     if (event.key === "Escape") clearAll();
-    if (event.key === "r") getReciprocal();
+    if (event.key === "t") getReciprocal();
     if (event.key === "s") getSquareNumber();
     if (event.key === "q") getSquareRoot();
     if (event.key === "e") clearEntry();
