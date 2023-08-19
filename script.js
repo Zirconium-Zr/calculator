@@ -167,6 +167,7 @@ function displayNumber(number) {
         currentTextField.textContent = "";
     }
     if (currentTextField.textContent.includes(".") && number == ".") return;
+
     if (inputNewNumber) {
         if (toggleEquals) {
             operatorSign = null;
@@ -190,6 +191,9 @@ function displayNumber(number) {
                 currentTextField.textContent = number;
             }
         } else {
+            if (currentTextField.textContent.length >= 16) {
+                return;
+            }
             currentTextField.textContent += number;
         }
     }
@@ -199,7 +203,9 @@ function displayNumber(number) {
 }
 
 function displayOperator(operator) {
+    selectOperatorKey = true;
     inputNewNumber = true;
+    toggleEquals = false;
     if (isNaN(firstNumber)) {
         firstNumber = "";
     }
@@ -209,6 +215,9 @@ function displayOperator(operator) {
     }
     operatorSign = operator;
     previousTextField.textContent = `${currentTextField.textContent} ${operatorSign}`;
+    if (isOn) {
+        firstNumber = currentTextField.textContent;
+    }
 }
 
 function displayAnswer(){
@@ -278,9 +287,6 @@ function displayOutput() {
             if (isNaN(firstNumber)) {
                 firstNumber = "";
             }
-            console.log(firstNumber);
-            console.log(secondNumber);
-            console.log(operatorSign);
             if (toggleCompute) {
                 operate(firstNumber, secondNumber, operatorSign);
                 toggleCompute = false;
