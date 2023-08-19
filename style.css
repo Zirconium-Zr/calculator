@@ -44,6 +44,7 @@ sup{
     justify-content: end;
     font-size: 14px;
     color: rgb(171, 171, 171);
+    user-select: none;
 }
 
 .big-text {
