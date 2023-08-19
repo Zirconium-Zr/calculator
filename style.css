@@ -16,6 +16,12 @@ sup{
     background-color: transparent;
 }
 
+br{
+    content: "";
+    display: block;
+    margin: 2px;
+}
+
 :disabled{
     background-color: rgb(37, 37, 37);
     color: rgb(104, 104, 104);
@@ -85,6 +91,7 @@ sup{
     height: 3.5rem;
     margin-bottom: 1rem;
     font-size: 14px;
+    text-align: center;
 }
 
 .historyContent:hover{
