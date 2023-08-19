@@ -215,7 +215,7 @@ function displayOperator(operator) {
     }
     operatorSign = operator;
     previousTextField.textContent = `${currentTextField.textContent} ${operatorSign}`;
-    if (isOn) {
+    if (selectOperatorKey) {
         firstNumber = currentTextField.textContent;
     }
 }
@@ -234,92 +234,11 @@ function displayAnswer(){
     createHistoryDiv();
 }
 
-
-function displayOutput() {
-    currentTextField.textContent = "0";
-    // Display numbers
-    operandButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-            if (inputNewNumber) {
-                // To remove current text field values when dot (".") is pressed
-                currentTextField.textContent = "";
-            }
-
-            if (button.textContent == "." && currentTextField.textContent.includes(".")) return;
-
-            if (inputNewNumber) {
-                if (toggleEquals) {
-                    operatorSign = null;
-                    toggleEquals = false;
-                }
-                toggleCompute = true;
-                if (button.textContent == ".") {
-                    currentTextField.textContent = "0" + button.textContent;
-                } else {
-                    currentTextField.textContent = button.textContent;
-                }
-                inputNewNumber = false;
-            } else {
-                if (currentTextField.textContent == "0") {
-                    if (button.textContent == ".") {
-                        currentTextField.textContent += button.textContent;
-                    } else {
-                        currentTextField.textContent = button.textContent;
-                    }
-                } else {
-                    if (currentTextField.textContent.length >= 16) {
-                        return;
-                    }
-                    currentTextField.textContent += button.textContent;
-                }
-            }
-            secondNumber = parseFloat(currentTextField.textContent);
-            firstNumber = parseFloat(previousTextField.textContent);
-        })
-    })
-
-    //Display operator
-    operatorButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-            isOn = true;
-            inputNewNumber = true;
-            toggleEquals = false;
-            if (isNaN(firstNumber)) {
-                firstNumber = "";
-            }
-            if (toggleCompute) {
-                operate(firstNumber, secondNumber, operatorSign);
-                toggleCompute = false;
-            }
-            previousTextField.textContent = `${currentTextField.textContent} ${button.textContent}`;
-            operator = button.textContent;
-            if (isOn) {
-                firstNumber = currentTextField.textContent;
-            }
-        })
-    })
-
-    // Display answer when '=' is pressed
-    equalsButton.addEventListener("click", () => {
-        if (toggleEquals) {
-            firstNumber = parseFloat(currentTextField.textContent);
-        } else {
-            firstNumber = parseFloat(previousTextField.textContent);
-            secondNumber = parseFloat(currentTextField.textContent);
-        }
-        operate(firstNumber, secondNumber, operatorSign);
-        inputNewNumber = true;
-        toggleEquals = true;
-
-        createHistoryDiv();
-    })
-}
-
 // Backspace
 function deleteNumber() {
     currentTextField.textContent = currentTextField.textContent.slice(0, -1);
     if (currentTextField.textContent == "") {
-        currentTextField.textContent = 0;
+        displayZero();
     }
 }
 
@@ -381,10 +300,10 @@ function getReciprocal() {
     selectSpecialKey = true;
     let number = currentTextField.textContent;
     // Remove trailing operator sign
-    if (isOn) {
+    if (selectOperatorKey) {
         previousTextField.textContent = currentTextField.textContent;
         console.log(firstNumber);
-        isOn = false;
+        selectOperatorKey = false;
     }
     answer = (1 / number);
     if (answer == Infinity) {
@@ -410,9 +329,9 @@ function getSquareNumber() {
     selectSpecialKey = true;
     let number = currentTextField.textContent;
     // Remove trailing operator sign
-    if (isOn) {
+    if (selectOperatorKey) {
         previousTextField.textContent = currentTextField.textContent;
-        isOn = false;
+        selectOperatorKey = false;
     }
     answer = Math.pow(number, 2);
     currentTextField.textContent = answer;
@@ -432,9 +351,9 @@ function getSquareRoot() {
     selectSpecialKey = true;
     let number = currentTextField.textContent;
     // Remove trailing operator sign
-    if (isOn) {
+    if (selectOperatorKey) {
         previousTextField.textContent = currentTextField.textContent;
-        isOn = false;
+        selectOperatorKey = false;
     }
     answer = Math.sqrt(number);
     currentTextField.textContent = answer;
@@ -463,10 +382,6 @@ allButtons.forEach((button) => {
         if (button.classList.contains("squareRoot")) getSquareRoot();
     })
 })
-
-// document.addEventListener("keypress", ()=>{
-
-// })
 
 displayMemory();
 // displayOutput();
