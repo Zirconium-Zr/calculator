@@ -8,6 +8,16 @@ const equalsButton = document.querySelector("[equals]");
 const storedContent = document.querySelector(".stored-content");
 const calculatorScreen = document.querySelector(".screen");
 const dummyText = document.createElement("p");
+const historyButton = document.querySelector(".history");
+const memoryButton = document.querySelector(".memory");
+const clearMemoryButton = document.createElement("button");
+
+window.onload = () => {
+    historyButton.click();
+    dummyText.style.textAlign = "start";
+    clearMemoryButton.classList.add("clearMemoButton");
+    clearMemoryButton.textContent = `Clear`;
+}
 
 let firstNumber;
 let secondNumber;
@@ -18,6 +28,55 @@ let toggleCompute = false;
 let toggleEquals = false;
 let flag = false;
 let isOn = false;
+
+function createHistoryDiv() {
+    const historyContent = document.createElement("div");
+    historyContent.classList.add("historyContent");
+    historyContent.textContent = `${previousTextField.textContent} ${currentTextField.textContent}`;
+    dummyText.remove();
+    storedContent.appendChild(historyContent);
+    storedContent.appendChild(clearMemoryButton);
+    memoryButton.setAttribute("disabled", "");
+}
+
+function displayMemory() {
+    function setHistorySection() {
+        historyButton.style.textDecoration = "underline";
+        memoryButton.style.textDecoration = "none";
+        historyButton.style.textDecorationColor = "gray";
+        historyButton.style.textUnderlineOffset = "0.5rem";
+        historyButton.style.textDecorationThickness = "0.2rem";
+        if (!toggleEquals || storedContent.textContent == "") {
+            dummyText.textContent = "There's no history yet";
+        }
+    }
+    function setMemorySection() {
+        memoryButton.style.textDecoration = "underline";
+        historyButton.style.textDecoration = "none";
+        memoryButton.style.textDecorationColor = "gray";
+        memoryButton.style.textUnderlineOffset = "0.5rem";
+        memoryButton.style.textDecorationThickness = "0.2rem";
+        if (!toggleEquals) {
+            dummyText.textContent = "Under maintainence";
+        }
+    }
+
+    clearMemoryButton.addEventListener("click", () => {
+        let historyContent = document.querySelectorAll(".historyContent");
+        historyContent.forEach((element) => {
+            element.remove();
+        })
+        clearMemoryButton.remove();
+
+        // dummyText.textContent = "There's no history yet";
+        // memoryButton.removeAttribute("disabled");
+        storedContent.appendChild(dummyText);
+
+    })
+    storedContent.appendChild(dummyText);
+    historyButton.addEventListener("click", setHistorySection);
+    memoryButton.addEventListener("click", setMemorySection);
+}
 
 function operate(firstNumber, secondNumber, operator) {
     switch (operator) {
@@ -139,7 +198,7 @@ function displayOutput() {
             }
             previousTextField.textContent = `${currentTextField.textContent} ${button.textContent}`;
             operator = button.textContent;
-            if(isOn){
+            if (isOn) {
                 firstNumber = currentTextField.textContent;
             }
         })
@@ -157,11 +216,7 @@ function displayOutput() {
         newNumber = true;
         toggleEquals = true;
 
-        const historyContent = document.createElement("div");
-        historyContent.classList.add("historyContent");
-        historyContent.textContent = `${previousTextField.textContent} ${currentTextField.textContent}`;
-        dummyText.textContent = "";
-        storedContent.appendChild(historyContent);
+        createHistoryDiv();
     })
 }
 
@@ -301,23 +356,18 @@ function getSquareRoot() {
     }
 }
 
-function displayMemory(){
-    dummyText.textContent = "There's no history yet";
-    storedContent.appendChild(dummyText);
-}
-displayMemory();
-
-allButtons.forEach((button)=>{
-    button.addEventListener("click", ()=>{
-        if(button.classList.contains("delete")) deleteNumber();
-        if(button.classList.contains("clearAll")) clearAll();
-        if(button.classList.contains("clearEntry")) clearEntry();
-        if(button.classList.contains("percentage")) calculatePercent();
-        if(button.classList.contains("plusMinus")) changeSign();
-        if(button.classList.contains("reciprocal")) getReciprocal();
-        if(button.classList.contains("square")) getSquareNumber();
-        if(button.classList.contains("squareRoot")) getSquareRoot();
+allButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        if (button.classList.contains("delete")) deleteNumber();
+        if (button.classList.contains("clearAll")) clearAll();
+        if (button.classList.contains("clearEntry")) clearEntry();
+        if (button.classList.contains("percentage")) calculatePercent();
+        if (button.classList.contains("plusMinus")) changeSign();
+        if (button.classList.contains("reciprocal")) getReciprocal();
+        if (button.classList.contains("square")) getSquareNumber();
+        if (button.classList.contains("squareRoot")) getSquareRoot();
     })
 })
 
+displayMemory();
 displayOutput();
