@@ -279,7 +279,7 @@ function getSquareRoot() {
         previousTextField.textContent = previousTextField.textContent.replace(`√(${firstNumber}${operator}${secondNumber})`, `√(${number})`);
 
     } else {
-        previousTextField.textContent = previousTextField.textContent.replace("√()", `√(${number})`);
+        previousTextField.textContent = previousTextField.textContent.replace("√()", `√(${parseFloat(number)})`);
     }
 }
 
