@@ -13,6 +13,7 @@ const percentageButton = document.querySelector(".percentage");
 const reciprocalButton = document.querySelector(".reciprocal");
 const squareButton = document.querySelector(".square");
 const squareRootButton = document.querySelector(".squareRoot");
+const storedContent = document.querySelector(".stored-content");
 let firstNumber;
 let secondNumber;
 let operator;
@@ -143,6 +144,9 @@ function displayOutput() {
             }
             previousTextField.textContent = `${currentTextField.textContent} ${button.textContent}`;
             operator = button.textContent;
+            if(isOn){
+                firstNumber = currentTextField.textContent;
+            }
         })
     })
 
@@ -157,6 +161,11 @@ function displayOutput() {
         operate(firstNumber, secondNumber, operator);
         newNumber = true;
         toggleEquals = true;
+
+        const contents = document.createElement("div");
+        contents.classList.add("historyContent");
+        contents.textContent = `${previousTextField.textContent} ${currentTextField.textContent}`;
+        storedContent.appendChild(contents);
     })
 }
 
@@ -225,6 +234,12 @@ function calculatePercent() {
 function getReciprocal() {
     flag = true;
     let number = currentTextField.textContent;
+    // Remove trailing operator sign
+    if (isOn) {
+        previousTextField.textContent = currentTextField.textContent;
+        console.log(firstNumber);
+        isOn = false;
+    }
     answer = (1 / number);
     if (answer == Infinity) {
         previousTextField.textContent = `1/(${number})`;
@@ -236,6 +251,9 @@ function getReciprocal() {
     previousTextField.textContent = `1/(${previousTextField.textContent})`;
 
     if (toggleEquals) {
+        previousTextField.textContent = previousTextField.textContent.replace("=", "");
+        previousTextField.textContent = previousTextField.textContent.replace(/\s/g, "");
+
         previousTextField.textContent = previousTextField.textContent.replace(`1/(${firstNumber} ${operator} ${secondNumber} =)`, `1/(${parseFloat(number)})`);
     } else {
         previousTextField.textContent = previousTextField.textContent.replace("1/()", `1/(${parseFloat(number)})`);
@@ -245,17 +263,19 @@ function getReciprocal() {
 function getSquareNumber() {
     flag = true;
     let number = currentTextField.textContent;
+    // Remove trailing operator sign
+    if (isOn) {
+        previousTextField.textContent = currentTextField.textContent;
+        isOn = false;
+    }
     answer = Math.pow(number, 2);
     currentTextField.textContent = answer;
-
-    if (isOn) {
-        previousTextField.textContent += ` sqr(${previousTextField.textContent.slice(0, -1).trim()})`;
-        isOn = false;
-    } else {
-        previousTextField.textContent = `sqr(${previousTextField.textContent})`;
-    }
+    previousTextField.textContent = `sqr(${previousTextField.textContent})`;
 
     if (toggleEquals) {
+        previousTextField.textContent = previousTextField.textContent.replace("=", "");
+        previousTextField.textContent = previousTextField.textContent.replace(/\s/g, "");
+
         previousTextField.textContent = previousTextField.textContent.replace(`sqr(${firstNumber} ${operator} ${secondNumber} =)`, `sqr(${parseFloat(number)})`);
     } else {
         previousTextField.textContent = previousTextField.textContent.replace(`sqr()`, `sqr(${parseFloat(number)})`);
@@ -265,8 +285,10 @@ function getSquareNumber() {
 function getSquareRoot() {
     flag = true;
     let number = currentTextField.textContent;
-    if(isOn){
+    // Remove trailing operator sign
+    if (isOn) {
         previousTextField.textContent = currentTextField.textContent;
+        isOn = false;
     }
     answer = Math.sqrt(number);
     currentTextField.textContent = answer;
