@@ -1,56 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator Project</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-</head>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="script.js" defer></script>
+  </head>
 
-<body>
+  <body>
     <div class="calculator">
-        <div class="calculation-section">
-            <div class="screen">
-                <div class="small-text"></div>
-                <div class="big-text"></div>
-            </div>
-            <div class="inputButtons">
-                <button special-key class="percentage">%</button>
-                <button special-key class="clearEntry clearButton">CE</button>
-                <button special-key class="clearAll clearButton">C</button>
-                <button special-key style="font-size: 1.5rem;" class="delete clearButton">&leftarrow;</button>
-                <button special-key class="reciprocal"><sup>1</sup>/x</button>
-                <button special-key class="square">x<sup>2</sup></button>
-                <button special-key class="squareRoot"><sup>2</sup>&Sqrt;x</button>
-                <button operators>&divide;</button>
-                <button operands class="number">7</button>
-                <button operands class="number">8</button>
-                <button operands class="number">9</button>
-                <button operators>&times;</button>
-                <button operands class="number">4</button>
-                <button operands class="number">5</button>
-                <button operands class="number">6</button>
-                <button operators>&minus;</button>
-                <button operands class="number">1</button>
-                <button operands class="number">2</button>
-                <button operands class="number">3</button>
-                <button operators>&plus;</button>
-                <button class="plusMinus"><sup>&plus;</sup>/&minus;</button>
-                <button operands class="number">0</button>
-                <button operands class="dot">.</button>
-                <button equals class="equals">&equals;</button>
-            </div>
+      <div class="calculation-section">
+        <div class="screen">
+          <div class="small-text"></div>
+          <div class="big-text"></div>
         </div>
-        <div class="memory-section">
-            <div class="memory-header">
-                <button class="history">History</button>
-                <button class="memory">Memory</button>
-            </div>
-            <div class="stored-content"></div>
+        <div class="inputButtons">
+          <button special-key class="percentage">%</button>
+          <button special-key class="clearEntry clearButton">CE</button>
+          <button special-key class="clearAll clearButton">C</button>
+          <button special-key style="font-size: 1.5rem" class="delete clearButton">&leftarrow;</button>
+          <button special-key class="reciprocal"><sup>1</sup>/x</button>
+          <button special-key class="square">x<sup>2</sup></button>
+          <button special-key class="squareRoot"><sup>2</sup>&Sqrt;x</button>
+          <button operators>&divide;</button>
+          <button operands class="number">7</button>
+          <button operands class="number">8</button>
+          <button operands class="number">9</button>
+          <button operators>&times;</button>
+          <button operands class="number">4</button>
+          <button operands class="number">5</button>
+          <button operands class="number">6</button>
+          <button operators>&minus;</button>
+          <button operands class="number">1</button>
+          <button operands class="number">2</button>
+          <button operands class="number">3</button>
+          <button operators>&plus;</button>
+          <button class="plusMinus"><sup>&plus;</sup>/&minus;</button>
+          <button operands class="number">0</button>
+          <button operands class="dot">.</button>
+          <button equals class="equals">&equals;</button>
         </div>
+      </div>
+      <div class="memory-section">
+        <div class="memory-header">
+          <button class="history">History</button>
+          <button class="memory">Memory</button>
+        </div>
+        <div class="stored-content"></div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
