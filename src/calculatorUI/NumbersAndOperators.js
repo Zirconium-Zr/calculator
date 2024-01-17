@@ -1,7 +1,15 @@
 import { bigTextField, smallTextField } from "./dom.js";
-import { getOperands, getOperator, getAnswer, firstNumber, secondNumber, operatorSign } from "../calculatorLogic/calculator.js";
+import {
+  assignOperands,
+  getAnswer,
+  firstNumber,
+  secondNumber,
+  operatorSign,
+  assignOperator,
+} from "../calculatorLogic/calculator.js";
 
-let newInput = false;
+let newInput = false,
+  resetCalculator = false;
 
 export function displayNumbers(number) {
   // Replace bigTextField with zero and decimal if user clicks on decimal after selecting an operator
@@ -25,17 +33,25 @@ export function displayNumbers(number) {
     } else bigTextField.textContent += number;
   }
 
-  getOperands(bigTextField.textContent);
+  // After user clicks equals to button
+  if (resetCalculator) {
+    resetCalculator = false;
+    bigTextField.textContent = number;
+    smallTextField.textContent = "";
+  }
+
+  assignOperands(bigTextField.textContent);
 }
 
 export function displayOperators(operator) {
   newInput = true;
   smallTextField.textContent = `${bigTextField.textContent} ${operator}`;
 
-  getOperator(operator);
+  assignOperator(operator);
 }
 
 export function displayAnswer() {
   smallTextField.textContent = `${firstNumber} ${operatorSign} ${secondNumber} =`;
   bigTextField.textContent = getAnswer();
+  resetCalculator = true;
 }

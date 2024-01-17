@@ -26,21 +26,30 @@ export function operate(firstNumber, secondNumber, operator) {
 
 export let firstNumber = "",
   secondNumber = "",
-  operatorSign = "";
+  operatorSign = "",
+  answer = "";
 
 let switchToSecondNumber = false;
 
-export function getOperands(operand) {
-  if (!switchToSecondNumber) firstNumber = operand;
-  else secondNumber = operand;
-  console.log({ firstNumber, secondNumber });
+export function assignOperands(operand) {
+  if (!switchToSecondNumber) {
+    firstNumber = operand;
+    secondNumber = "";
+  } else secondNumber = operand;
+  console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber });
+  return { firstNumber, secondNumber };
 }
 
-export function getOperator(operator) {
+export function assignOperator(operator) {
   operatorSign = operator;
   if (operatorSign !== "") switchToSecondNumber = true;
+  console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber });
+  return { operatorSign };
 }
 
 export function getAnswer() {
-  return operate(firstNumber, secondNumber, operatorSign);
+  if (secondNumber === "") secondNumber = firstNumber;
+  switchToSecondNumber = false;
+  console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber });
+  return (answer = operate(firstNumber, secondNumber, operatorSign));
 }
