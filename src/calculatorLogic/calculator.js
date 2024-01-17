@@ -23,3 +23,24 @@ export function operate(firstNumber, secondNumber, operator) {
       return divide(parseFloat(firstNumber), parseFloat(secondNumber));
   }
 }
+
+export let firstNumber = "",
+  secondNumber = "",
+  operatorSign = "";
+
+let switchToSecondNumber = false;
+
+export function getOperands(operand) {
+  if (!switchToSecondNumber) firstNumber = operand;
+  else secondNumber = operand;
+  console.log({ firstNumber, secondNumber });
+}
+
+export function getOperator(operator) {
+  operatorSign = operator;
+  if (operatorSign !== "") switchToSecondNumber = true;
+}
+
+export function getAnswer() {
+  return operate(firstNumber, secondNumber, operatorSign);
+}

@@ -1,4 +1,5 @@
 import { bigTextField, smallTextField } from "./dom.js";
+import { getOperands, getOperator, getAnswer, firstNumber, secondNumber, operatorSign } from "../calculatorLogic/calculator.js";
 
 let newInput = false;
 
@@ -23,9 +24,18 @@ export function displayNumbers(number) {
       newInput = false;
     } else bigTextField.textContent += number;
   }
+
+  getOperands(bigTextField.textContent);
 }
 
 export function displayOperators(operator) {
   newInput = true;
   smallTextField.textContent = `${bigTextField.textContent} ${operator}`;
+
+  getOperator(operator);
+}
+
+export function displayAnswer() {
+  smallTextField.textContent = `${firstNumber} ${operatorSign} ${secondNumber} =`;
+  bigTextField.textContent = getAnswer();
 }

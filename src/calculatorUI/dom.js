@@ -1,4 +1,4 @@
-import { displayNumbers, displayOperators } from "./NumbersAndOperators.js";
+import { displayNumbers, displayOperators, displayAnswer } from "./NumbersAndOperators.js";
 
 const buttons = document.querySelectorAll("button");
 export const bigTextField = document.querySelector(".big-text");
@@ -14,6 +14,8 @@ buttons.forEach((button) => {
       displayNumbers(button.textContent);
     } else if (button.classList.contains("operator")) {
       displayOperators(button.textContent);
+    } else if (button.classList.contains("equals")) {
+      displayAnswer();
     }
   });
 });
