@@ -1,4 +1,4 @@
-import { operate } from "./calculator.js";
+import { operate } from "../calculator.js";
 
 describe("Basic calculator logic", () => {
   test("Returns 2 + 3 to equal 5", () => {
