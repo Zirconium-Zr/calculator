@@ -25,15 +25,44 @@ describe("Variable values and operators", () => {
   });
 
   test("Recieves the operator and assigns the value to second operand", () => {
-    expect(assignOperator("+").operatorSign).toBe("+");
     expect(assignOperands("10").firstNumber).toBe("10");
-    expect(assignOperands("10").secondNumber).toBe("10");
+    expect(assignOperator("+").operatorSign).toBe("+");
+    expect(assignOperands("8").secondNumber).toBe("8");
   });
 
+  test("Checks for invalid operator", () => {
+    expect(assignOperands("10").firstNumber).toBe("10");
+    expect(assignOperator("").operatorSign).toBe("No operator");
+    expect(getAnswer()).toBe("10");
+  });
+});
+
+describe("Check answer", () => {
   test("Return answer 20 for 10 + 10", () => {
     expect(assignOperands("10").firstNumber).toBe("10");
     expect(assignOperator("+").operatorSign).toBe("+");
-    expect(assignOperands("10").secondNumber).toBe("10");
-    expect(getAnswer()).toBe(20);
+    expect(assignOperands("8").secondNumber).toBe("8");
+    expect(getAnswer()).toBe(18);
+  });
+
+  test("Returns -3 for 2 - 5", () => {
+    expect(assignOperands("2").firstNumber).toBe("2");
+    expect(assignOperator("−").operatorSign).toBe("-");
+    expect(assignOperands("5").secondNumber).toBe("5");
+    expect(getAnswer()).toBe(-3);
+  });
+
+  test("Returns 15 for 5 * 3", () => {
+    expect(assignOperands("5").firstNumber).toBe("5");
+    expect(assignOperator("×").operatorSign).toBe("*");
+    expect(assignOperands("3").secondNumber).toBe("3");
+    expect(getAnswer()).toBe(15);
+  });
+
+  test("Returns 4 for 8 / 2", () => {
+    expect(assignOperands("8").firstNumber).toBe("8");
+    expect(assignOperator("÷").operatorSign).toBe("/");
+    expect(assignOperands("2").secondNumber).toBe("2");
+    expect(getAnswer()).toBe(4);
   });
 });

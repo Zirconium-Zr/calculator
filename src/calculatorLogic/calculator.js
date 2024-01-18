@@ -1,3 +1,5 @@
+import { convertOperatorSign } from "../utils/helper.js";
+
 function add(x, y) {
   return x + y;
 }
@@ -24,7 +26,7 @@ export function operate(firstNumber, secondNumber, operator) {
   }
 }
 
-export let firstNumber = "",
+export let firstNumber = "0",
   secondNumber = "",
   operatorSign = "",
   answer = "";
@@ -32,24 +34,24 @@ export let firstNumber = "",
 let switchToSecondNumber = false;
 
 export function assignOperands(operand) {
-  if (!switchToSecondNumber) {
-    firstNumber = operand;
-    secondNumber = "";
-  } else secondNumber = operand;
+  if (!switchToSecondNumber) firstNumber = operand;
+  else secondNumber = operand;
   console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber });
   return { firstNumber, secondNumber };
 }
 
 export function assignOperator(operator) {
-  operatorSign = operator;
-  if (operatorSign !== "") switchToSecondNumber = true;
+  operatorSign = convertOperatorSign(operator, "Calculator");
+  switchToSecondNumber = true;
   console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber });
   return { operatorSign };
 }
 
 export function getAnswer() {
+  if (operatorSign === "" || operatorSign === "No operator") return firstNumber;
   if (secondNumber === "") secondNumber = firstNumber;
   switchToSecondNumber = false;
-  console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber });
-  return (answer = operate(firstNumber, secondNumber, operatorSign));
+  answer = operate(firstNumber, secondNumber, operatorSign);
+  console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber, answer });
+  return answer;
 }

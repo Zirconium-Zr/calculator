@@ -7,6 +7,7 @@ import {
   operatorSign,
   assignOperator,
 } from "../calculatorLogic/calculator.js";
+import { convertOperatorSign } from "../utils/helper.js";
 
 let newInput = false,
   resetCalculator = false;
@@ -51,7 +52,9 @@ export function displayOperators(operator) {
 }
 
 export function displayAnswer() {
-  smallTextField.textContent = `${firstNumber} ${operatorSign} ${secondNumber} =`;
+  // Check if user clicks equals to sign without providing an operator
   bigTextField.textContent = getAnswer();
+  if (operatorSign === "" || operatorSign === "No operator") smallTextField.textContent = `${getAnswer()} =`;
+  else smallTextField.textContent = `${firstNumber} ${convertOperatorSign(operatorSign, "DOM")} ${secondNumber} =`;
   resetCalculator = true;
 }
