@@ -26,6 +26,7 @@ export function displayNumbers(number) {
   // Replace initial zero with clicked number except when user clicks on decimal button or zero
   if (bigTextField.textContent === "0" && number !== ".") {
     bigTextField.textContent = number;
+    newInput = false;
   } else {
     // Replace bigTextField values with new input values if user clicks on any number buttons except decimal after selecting an operator
     if (newInput) {
@@ -46,15 +47,20 @@ export function displayNumbers(number) {
 
 export function displayOperators(operator) {
   newInput = true;
-  smallTextField.textContent = `${bigTextField.textContent} ${operator}`;
+  smallTextField.textContent = `${parseFloat(bigTextField.textContent)} ${operator}`;
+  bigTextField.textContent = `${parseFloat(bigTextField.textContent)}`;
 
   assignOperator(operator);
 }
 
 export function displayAnswer() {
+  bigTextField.textContent = parseFloat(getAnswer());
   // Check if user clicks equals to sign without providing an operator
-  bigTextField.textContent = getAnswer();
-  if (operatorSign === "" || operatorSign === "No operator") smallTextField.textContent = `${getAnswer()} =`;
-  else smallTextField.textContent = `${firstNumber} ${convertOperatorSign(operatorSign, "DOM")} ${secondNumber} =`;
+  // If there is no operator, just return the number on screen as answer
+  if (operatorSign === "" || operatorSign === "No operator") smallTextField.textContent = `${parseFloat(getAnswer())} =`;
+  else
+    smallTextField.textContent = `${parseFloat(firstNumber)} ${convertOperatorSign(operatorSign, "DOM")} ${parseFloat(
+      secondNumber
+    )} =`;
   resetCalculator = true;
 }
