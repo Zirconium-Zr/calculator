@@ -13,11 +13,16 @@ let newInput = false,
   resetCalculator = false;
 
 export function displayNumbers(number) {
+  // After user clicks equals to button and selects a number right after
+  if (resetCalculator) {
+    resetCalculator = false;
+    smallTextField.textContent = "";
+  }
+
   // Replace bigTextField with zero and decimal if user clicks on decimal after selecting an operator
   if (number === "." && newInput) {
     bigTextField.textContent = `0${number}`;
     newInput = false;
-    return;
   }
 
   // Do not let decimal appear more than once
@@ -33,13 +38,6 @@ export function displayNumbers(number) {
       bigTextField.textContent = number;
       newInput = false;
     } else bigTextField.textContent += number;
-  }
-
-  // After user clicks equals to button
-  if (resetCalculator) {
-    resetCalculator = false;
-    bigTextField.textContent = number;
-    smallTextField.textContent = "";
   }
 
   assignOperands(bigTextField.textContent);
@@ -66,4 +64,5 @@ export function displayAnswer() {
     assignOperands(bigTextField.textContent);
   }
   resetCalculator = true;
+  newInput = true;
 }
