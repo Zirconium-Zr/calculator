@@ -26,7 +26,7 @@ export function displayNumbers(number) {
   }
 
   // Do not let decimal appear more than once
-  if (number === "." && bigTextField.textContent.includes(".")) return;
+  if (number === "." && bigTextField.textContent.includes(".")) return assignOperands(bigTextField.textContent);
 
   // Replace initial zero with clicked number except when user clicks on decimal button or zero
   if (bigTextField.textContent === "0" && number !== ".") {
