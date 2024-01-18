@@ -33,11 +33,15 @@ export let firstNumber = "0",
 
 let switchToSecondNumber = false,
   displayedAnswer = false,
-  resetSecondNumber = false;
+  replaceSecondNumber = false;
 
 export function assignOperands(operand) {
   if (!switchToSecondNumber) firstNumber = operand;
-  else secondNumber = operand;
+  else {
+    secondNumber = operand;
+    // Set replace second number to false if new input is provided instead of using already present value in screen
+    replaceSecondNumber = false;
+  }
   console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber });
   return { firstNumber, secondNumber };
 }
@@ -49,8 +53,8 @@ export function assignOperator(operator) {
   // If user selects operator while the answer is on the screen
   if (displayedAnswer) {
     displayedAnswer = false;
-    // Reset the second number so that the second number will be the new number that will be provided after selecting the operator. However, the second number will be replaced after clicking equals to sign
-    resetSecondNumber = true;
+    // Replace the second number so that the second number will be the new number that will be provided after selecting the operator. However, the second number will be replaced after clicking equals to sign
+    replaceSecondNumber = true;
   }
   console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber });
   return { operatorSign };
@@ -58,9 +62,9 @@ export function assignOperator(operator) {
 
 export function getAnswer() {
   if (operatorSign === "" || operatorSign === "No operator") return firstNumber;
-  if (secondNumber === "" || resetSecondNumber) {
+  if (secondNumber === "" || replaceSecondNumber) {
     secondNumber = firstNumber;
-    resetSecondNumber = false;
+    replaceSecondNumber = false;
   }
   switchToSecondNumber = false;
   displayedAnswer = true;
