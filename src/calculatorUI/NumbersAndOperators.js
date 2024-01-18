@@ -58,9 +58,12 @@ export function displayAnswer() {
   // Check if user clicks equals to sign without providing an operator
   // If there is no operator, just return the number on screen as answer
   if (operatorSign === "" || operatorSign === "No operator") smallTextField.textContent = `${parseFloat(getAnswer())} =`;
-  else
+  else {
     smallTextField.textContent = `${parseFloat(firstNumber)} ${convertOperatorSign(operatorSign, "DOM")} ${parseFloat(
       secondNumber
     )} =`;
+    // If user clicks equals to sign continuously.
+    assignOperands(bigTextField.textContent);
+  }
   resetCalculator = true;
 }
