@@ -5,8 +5,8 @@ import {
   firstNumber,
   secondNumber,
   operatorSign,
+  answer,
   assignOperator,
-  evaluatePairs,
 } from "../calculatorLogic/calculator.js";
 import { convertOperatorSign } from "../utils/helper.js";
 
@@ -46,11 +46,19 @@ export function displayNumbers(number) {
 
 export function displayOperators(operator) {
   newInput = true;
-  if (evaluatePairs) bigTextField.textContent = getAnswer();
-  smallTextField.textContent = `${parseFloat(bigTextField.textContent)} ${operator}`;
+
+  // When user presses operator button
   bigTextField.textContent = `${parseFloat(bigTextField.textContent)}`;
+  smallTextField.textContent = `${parseFloat(bigTextField.textContent)} ${operator}`;
 
   assignOperator(operator);
+
+  // For continuous calculations
+  // This part has to be placed after assignOperator function so that answer can be calculated and displayed as soon as another operator button is pressed
+  if (answer !== "") {
+    bigTextField.textContent = `${answer}`;
+    smallTextField.textContent = `${parseFloat(bigTextField.textContent)} ${operator}`;
+  }
 }
 
 export function displayAnswer() {
