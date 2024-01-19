@@ -6,6 +6,7 @@ import {
   secondNumber,
   operatorSign,
   assignOperator,
+  evaluatePairs,
 } from "../calculatorLogic/calculator.js";
 import { convertOperatorSign } from "../utils/helper.js";
 
@@ -45,6 +46,7 @@ export function displayNumbers(number) {
 
 export function displayOperators(operator) {
   newInput = true;
+  if (evaluatePairs) bigTextField.textContent = getAnswer();
   smallTextField.textContent = `${parseFloat(bigTextField.textContent)} ${operator}`;
   bigTextField.textContent = `${parseFloat(bigTextField.textContent)}`;
 

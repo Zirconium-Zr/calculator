@@ -32,27 +32,37 @@ export let firstNumber = "0",
   answer = "";
 
 let switchToSecondNumber = false,
-  displayedAnswer = false,
+  gotAnswer = false,
   replaceSecondNumber = false;
+
+export let evaluatePairs = false; // To evaluate initial operands if third operand is provided
 
 export function assignOperands(operand) {
   if (!switchToSecondNumber) firstNumber = operand;
   else {
     secondNumber = operand;
-    // Set replace second number to false if new input is provided instead of using already present value in screen
+    // Set replace second number to false if new input is provided instead of using already present value on screen
     replaceSecondNumber = false;
   }
+
+  // Set evaluatePairs to true if secondNumber is available so that the pairs can be evaluated when user clicks on any operator afterwards
+  if (secondNumber !== "") evaluatePairs = true;
+
   console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber });
   return { firstNumber, secondNumber };
 }
 
 export function assignOperator(operator) {
+  // Evaluate two available operands
+  if (evaluatePairs) getAnswer();
+
   operatorSign = convertOperatorSign(operator, "Calculator");
   switchToSecondNumber = true;
+  // evaluatePairs = true;
 
   // If user selects operator while the answer is on the screen
-  if (displayedAnswer) {
-    displayedAnswer = false;
+  if (gotAnswer) {
+    gotAnswer = false;
     // Replace the second number so that the second number will be the new number that will be provided after selecting the operator. However, the second number will be replaced after clicking equals to sign
     replaceSecondNumber = true;
   }
@@ -61,14 +71,21 @@ export function assignOperator(operator) {
 }
 
 export function getAnswer() {
+  switchToSecondNumber = false;
+  gotAnswer = true;
+
   if (operatorSign === "" || operatorSign === "No operator") return firstNumber;
   if (secondNumber === "" || replaceSecondNumber) {
     secondNumber = firstNumber;
     replaceSecondNumber = false;
   }
-  switchToSecondNumber = false;
-  displayedAnswer = true;
+
   answer = operate(firstNumber, secondNumber, operatorSign);
+
+  if (evaluatePairs) {
+    firstNumber = answer;
+    evaluatePairs = false;
+  }
   console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber, answer });
   return answer;
 }
