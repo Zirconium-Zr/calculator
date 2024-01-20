@@ -45,6 +45,9 @@ export function assignOperands(operand) {
     replaceSecondNumber = false;
     evaluatePairs = true;
   }
+
+  // Make answer empty when new input is provided so that if there is already an answer, it wont look like the answer has overwritten the new input when user selects operator. This is an UI problem, the actual operand wont be overwritten
+  if (!evaluatePairs) answer = "";
   console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber });
   return { firstNumber, secondNumber };
 }
