@@ -10,7 +10,7 @@ import {
 } from "../calculatorLogic/calculator.js";
 import { convertOperatorSign } from "../utils/helper.js";
 
-let newInput = false,
+export let newInput = false,
   resetCalculator = false;
 
 export function displayNumbers(number) {

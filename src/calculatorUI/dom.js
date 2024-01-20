@@ -1,4 +1,4 @@
-import { backSpace } from "./ClearButtons.js";
+import { backSpace, clearAll } from "./ClearButtons.js";
 import { displayNumbers, displayOperators, displayAnswer } from "./NumbersAndOperators.js";
 
 const buttons = document.querySelectorAll("button");
@@ -19,6 +19,8 @@ buttons.forEach((button) => {
       displayAnswer();
     } else if (button.classList.contains("delete")) {
       backSpace();
+    } else if (button.classList.contains("clearAll")) {
+      clearAll();
     }
   });
 });

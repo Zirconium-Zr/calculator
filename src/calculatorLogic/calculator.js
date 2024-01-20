@@ -31,7 +31,7 @@ export let firstNumber = "0",
   operatorSign = "",
   answer = "";
 
-let switchToSecondNumber = false,
+export let switchToSecondNumber = false,
   displayedAnswer = false,
   replaceSecondNumber = false,
   replaceFirstNumber = false, // To replace firstNumber with answer for continuous calculation
@@ -89,4 +89,4 @@ export function getAnswer() {
   return answer;
 }
 
-function controlClear() {}
+// function controlClear() {}
