@@ -47,6 +47,9 @@ export function displayNumbers(number) {
 export function displayOperators(operator) {
   newInput = true;
 
+  // Do not reset calculator if user selects operator. It will prevent smallTextField value from being empty
+  resetCalculator = false;
+
   // When user presses operator button
   bigTextField.textContent = `${parseFloat(bigTextField.textContent)}`;
   smallTextField.textContent = `${parseFloat(bigTextField.textContent)} ${operator}`;
