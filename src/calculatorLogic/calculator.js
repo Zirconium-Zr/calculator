@@ -1,3 +1,5 @@
+import { clearValues } from "../calculatorUI/ClearButtons.js";
+import { newInput } from "../calculatorUI/NumbersAndOperators.js";
 import { convertOperatorSign } from "../utils/helper.js";
 
 function add(x, y) {
@@ -26,16 +28,29 @@ export function operate(firstNumber, secondNumber, operator) {
   }
 }
 
-export let firstNumber = "0",
-  secondNumber = "",
-  operatorSign = "",
-  answer = "";
+export let firstNumber,
+  secondNumber,
+  operatorSign,
+  answer,
+  switchToSecondNumber,
+  displayedAnswer,
+  replaceFirstNumber, // To replace firstNumber with answer for continuous calculation
+  replaceSecondNumber,
+  evaluatePairs;
 
-export let switchToSecondNumber = false,
-  displayedAnswer = false,
-  replaceSecondNumber = false,
-  replaceFirstNumber = false, // To replace firstNumber with answer for continuous calculation
+function initialiseCalculator() {
+  firstNumber = "0";
+  secondNumber = "";
+  operatorSign = "";
+  answer = "";
+  switchToSecondNumber = false;
+  displayedAnswer = false;
+  replaceFirstNumber = false;
+  replaceSecondNumber = false;
   evaluatePairs = false;
+}
+
+window.addEventListener("load", initialiseCalculator);
 
 export function assignOperands(operand) {
   if (!switchToSecondNumber) firstNumber = operand;
@@ -89,4 +104,8 @@ export function getAnswer() {
   return answer;
 }
 
-// function controlClear() {}
+export function controlClear() {
+  if (clearValues) {
+    initialiseCalculator();
+  }
+}

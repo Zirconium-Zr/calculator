@@ -1,6 +1,8 @@
-import { assignOperands, displayedAnswer } from "../calculatorLogic/calculator.js";
+import { assignOperands, controlClear, displayedAnswer } from "../calculatorLogic/calculator.js";
 import { bigTextField, smallTextField } from "./dom.js";
 import { newInput } from "./NumbersAndOperators.js";
+
+export let clearValues = false;
 
 export function backSpace() {
   if (displayedAnswer) return (smallTextField.textContent = "");
@@ -14,4 +16,9 @@ export function backSpace() {
 export function clearAll() {
   bigTextField.textContent = "0";
   smallTextField.textContent = "";
+  clearValues = true;
+  controlClear();
+  clearValues = false;
+
+  assignOperands(bigTextField.textContent);
 }
