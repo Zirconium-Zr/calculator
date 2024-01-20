@@ -88,3 +88,5 @@ export function getAnswer() {
   console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber, answer });
   return answer;
 }
+
+function controlClear() {}

@@ -1,3 +1,4 @@
+import { backSpace } from "./ClearButtons.js";
 import { displayNumbers, displayOperators, displayAnswer } from "./NumbersAndOperators.js";
 
 const buttons = document.querySelectorAll("button");
@@ -16,6 +17,8 @@ buttons.forEach((button) => {
       displayOperators(button.textContent);
     } else if (button.classList.contains("equals")) {
       displayAnswer();
+    } else if (button.classList.contains("delete")) {
+      backSpace();
     }
   });
 });
