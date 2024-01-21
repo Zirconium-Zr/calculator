@@ -7,8 +7,9 @@ import {
   operatorSign,
   answer,
   assignOperator,
+  initialiseCalculator,
 } from "../calculatorLogic/calculator.js";
-import { convertOperatorSign } from "../utils/helper.js";
+import { checkForInvalidAnswer, convertOperatorSign } from "../utils/helper.js";
 
 export let newInput = false,
   resetCalculator = false;
@@ -62,20 +63,38 @@ export function displayOperators(operator) {
     bigTextField.textContent = `${answer}`;
     smallTextField.textContent = `${parseFloat(bigTextField.textContent)} ${operator}`;
   }
+
+  // When user does something like dividing 0 by 0
+  if (isNaN(answer)) {
+    checkForInvalidAnswer(answer, bigTextField);
+    // Used secondNumber variable to show the operation instead of firstVariable because firstVariable will get replaced by answer and will return NaN
+    smallTextField.textContent = `${secondNumber} ${operator} ${secondNumber} =`;
+  }
 }
 
 export function displayAnswer() {
+  // The reason to call the function "getAnswer()" instead of the variable "answer" is so that the function can get receive operands, perform operation and finally give answer
   bigTextField.textContent = parseFloat(getAnswer());
+
   // Check if user clicks equals to sign without providing an operator
   // If there is no operator, just return the number on screen as answer
   if (operatorSign === "" || operatorSign === "No operator") smallTextField.textContent = `${parseFloat(getAnswer())} =`;
   else {
     smallTextField.textContent = `${parseFloat(firstNumber)} ${convertOperatorSign(operatorSign, "DOM")} ${parseFloat(
-      secondNumber
+      secondNumber // Not sure why prettier formatted it in a weird way here
     )} =`;
     // If user clicks equals to sign continuously.
     assignOperands(bigTextField.textContent);
   }
+
+  // When user does something like dividing 0 by 0
+  // We are using firstNumber to check the condition because after perfoming operation firstNumber will be replaced by answer.
+  // So it is just like checking answer. We can't use answer variable because it is still emtpy at this phase.
+  if (isNaN(firstNumber)) {
+    checkForInvalidAnswer(firstNumber, bigTextField);
+    initialiseCalculator(); // Reset every values
+  }
+  // if (isNaN(getAnswer())) return (bigTextField.textContent = "Result is undefined");
   resetCalculator = true;
   newInput = true;
 }
