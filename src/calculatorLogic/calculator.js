@@ -1,4 +1,3 @@
-import { clearValues } from "../calculatorUI/ClearButtons.js";
 import { newInput } from "../calculatorUI/NumbersAndOperators.js";
 import { convertOperatorSign } from "../utils/helper.js";
 
@@ -38,7 +37,7 @@ export let firstNumber,
   replaceSecondNumber,
   evaluatePairs;
 
-function initialiseCalculator() {
+export function initialiseCalculator() {
   firstNumber = "0";
   secondNumber = "";
   operatorSign = "";
@@ -102,10 +101,4 @@ export function getAnswer() {
 
   console.log({ firstNumber, secondNumber, operatorSign, switchToSecondNumber, answer });
   return answer;
-}
-
-export function controlClear() {
-  if (clearValues) {
-    initialiseCalculator();
-  }
 }

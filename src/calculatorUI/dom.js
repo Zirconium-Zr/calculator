@@ -1,4 +1,4 @@
-import { backSpace, clearAll } from "./ClearButtons.js";
+import { clearValues } from "./ClearButtons.js";
 import { displayNumbers, displayOperators, displayAnswer } from "./NumbersAndOperators.js";
 
 const buttons = document.querySelectorAll("button");
@@ -17,10 +17,12 @@ buttons.forEach((button) => {
       displayOperators(button.textContent);
     } else if (button.classList.contains("equals")) {
       displayAnswer();
-    } else if (button.classList.contains("delete")) {
-      backSpace();
-    } else if (button.classList.contains("clearAll")) {
-      clearAll();
+    } else if (
+      button.classList.contains("delete") ||
+      button.classList.contains("clearAll") ||
+      button.classList.contains("clearEntry")
+    ) {
+      clearValues(button.classList);
     }
   });
 });
