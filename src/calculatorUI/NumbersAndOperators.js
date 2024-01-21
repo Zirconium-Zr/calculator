@@ -12,9 +12,11 @@ import {
 import { checkForInvalidAnswer, convertOperatorSign } from "../utils/helper.js";
 
 export let newInput = false,
-  resetCalculator = false;
+  resetCalculator = false,
+  disableButtons = false;
 
 export function displayNumbers(number) {
+  disableButtons = false;
   // After user clicks equals to button and selects a number right after
   if (resetCalculator) {
     resetCalculator = false;
@@ -66,13 +68,15 @@ export function displayOperators(operator) {
 
   // When user does something like dividing 0 by 0
   if (isNaN(answer)) {
-    checkForInvalidAnswer(answer, bigTextField);
     // Used secondNumber variable to show the operation instead of firstVariable because firstVariable will get replaced by answer and will return NaN
-    smallTextField.textContent = `${secondNumber} ${operator} ${secondNumber} =`;
+    smallTextField.textContent = `${secondNumber} ÷ ${secondNumber} =`;
+    checkForInvalidAnswer(answer, bigTextField);
+    disableButtons = true;
   }
 }
 
 export function displayAnswer() {
+  disableButtons = false;
   // The reason to call the function "getAnswer()" instead of the variable "answer" is so that the function can get receive operands, perform operation and finally give answer
   bigTextField.textContent = parseFloat(getAnswer());
 
@@ -92,7 +96,7 @@ export function displayAnswer() {
   // So it is just like checking answer. We can't use answer variable because it is still emtpy at this phase.
   if (isNaN(firstNumber)) {
     checkForInvalidAnswer(firstNumber, bigTextField);
-    initialiseCalculator(); // Reset every values
+    disableButtons = true;
   }
   // if (isNaN(getAnswer())) return (bigTextField.textContent = "Result is undefined");
   resetCalculator = true;

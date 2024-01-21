@@ -1,4 +1,4 @@
-export let disableButton = false;
+import { initialiseCalculator } from "../calculatorLogic/calculator.js";
 
 export function convertOperatorSign(operator, signFor) {
   if (signFor === "Calculator") {
@@ -33,6 +33,6 @@ export function convertOperatorSign(operator, signFor) {
 }
 
 export function checkForInvalidAnswer(answer, textField) {
-  disableButton = true;
+  initialiseCalculator();
   if (isNaN(answer)) return (textField.textContent = "Result is undefined");
 }
