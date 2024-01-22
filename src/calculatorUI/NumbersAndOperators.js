@@ -1,7 +1,7 @@
 import { bigTextField, smallTextField } from "./dom.js";
 import {
   assignOperands,
-  getAnswer,
+  evaluateAnswer,
   firstNumber,
   secondNumber,
   operatorSign,
@@ -77,12 +77,12 @@ export function displayOperators(operator) {
 
 export function displayAnswer() {
   disableButtons = false;
-  // The reason to call the function "getAnswer()" instead of the variable "answer" is so that the function can get receive operands, perform operation and finally give answer
-  bigTextField.textContent = parseFloat(getAnswer());
+  // The reason to call the function "evaluateAnswer()" instead of the variable "answer" is so that the function can get receive operands, perform operation and finally give answer
+  bigTextField.textContent = parseFloat(evaluateAnswer());
 
   // Check if user clicks equals to sign without providing an operator
   // If there is no operator, just return the number on screen as answer
-  if (operatorSign === "" || operatorSign === "No operator") smallTextField.textContent = `${parseFloat(getAnswer())} =`;
+  if (operatorSign === "" || operatorSign === "No operator") smallTextField.textContent = `${parseFloat(evaluateAnswer())} =`;
   else {
     smallTextField.textContent = `${parseFloat(firstNumber)} ${convertOperatorSign(operatorSign, "DOM")} ${parseFloat(
       secondNumber // Not sure why prettier formatted it in a weird way here
@@ -98,7 +98,7 @@ export function displayAnswer() {
     checkForInvalidAnswer(firstNumber, bigTextField);
     disableButtons = true;
   }
-  // if (isNaN(getAnswer())) return (bigTextField.textContent = "Result is undefined");
+  // if (isNaN(evaluateAnswer())) return (bigTextField.textContent = "Result is undefined");
   resetCalculator = true;
   newInput = true;
 }

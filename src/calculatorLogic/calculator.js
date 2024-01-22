@@ -69,7 +69,7 @@ export function assignOperands(operand) {
 export function assignOperator(operator) {
   if (evaluatePairs) {
     replaceFirstNumber = true;
-    getAnswer();
+    evaluateAnswer();
   }
   operatorSign = convertOperatorSign(operator, "Calculator");
   switchToSecondNumber = true;
@@ -84,7 +84,7 @@ export function assignOperator(operator) {
   return { operatorSign };
 }
 
-export function getAnswer() {
+export function evaluateAnswer() {
   if (operatorSign === "" || operatorSign === "No operator") return firstNumber;
   if (secondNumber === "" || replaceSecondNumber) {
     secondNumber = firstNumber;
