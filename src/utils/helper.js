@@ -34,5 +34,8 @@ export function convertOperatorSign(operator, signFor) {
 
 export function checkForInvalidAnswer(answer, textField) {
   initialiseCalculator();
+  // After dividing 0 by 0
   if (isNaN(answer)) return (textField.textContent = "Result is undefined");
+  // After dividing any number by 0
+  if (!isFinite(answer)) return (textField.textContent = "Cannot divide by zero");
 }

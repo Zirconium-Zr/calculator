@@ -91,10 +91,10 @@ export function displayAnswer() {
     assignOperands(bigTextField.textContent);
   }
 
-  // When user does something like dividing 0 by 0
+  // When user does something like dividing by 0
   // We are using firstNumber to check the condition because after perfoming operation firstNumber will be replaced by answer.
   // So it is just like checking answer. We can't use answer variable because it is still emtpy at this phase.
-  if (isNaN(firstNumber)) {
+  if (isNaN(firstNumber) || !isFinite(firstNumber)) {
     checkForInvalidAnswer(firstNumber, bigTextField);
     disableButtons = true;
   }
