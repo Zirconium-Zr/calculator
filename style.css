@@ -35,11 +35,6 @@ br {
   margin: 2px;
 }
 
-:disabled {
-  background-color: rgb(37, 37, 37);
-  color: rgb(104, 104, 104);
-}
-
 .calculator {
   display: grid;
   grid-template-columns: [calculation-section]1fr [memory-section]300px;
@@ -133,6 +128,10 @@ br {
 .plusMinus {
   background-color: rgb(54, 54, 54);
   font-size: 1rem;
+}
+
+:disabled {
+  background-color: rgb(33, 33, 33);
 }
 
 [equals] {
