@@ -1,180 +1,179 @@
 * {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: rgb(31, 31, 31);
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(31, 31, 31);
 }
 
-::-webkit-scrollbar{
-    width: 2px;
+::-webkit-scrollbar {
+  width: 2px;
 }
 
-::-webkit-scrollbar-track{
-    background-color: none;
+::-webkit-scrollbar-track {
+  background-color: none;
 }
 
-::-webkit-scrollbar-thumb{
-    background-color: white;
-    border-radius: 10px;
+::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 10px;
 }
 
 button {
-    border: none;
-    border-radius: 3px;
-    color: white;
-    user-select: none;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  user-select: none;
 }
 
 sup {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 br {
-    content: "";
-    display: block;
-    margin: 2px;
+  content: "";
+  display: block;
+  margin: 2px;
 }
 
 :disabled {
-    background-color: rgb(37, 37, 37);
-    color: rgb(104, 104, 104);
+  background-color: rgb(37, 37, 37);
+  color: rgb(104, 104, 104);
 }
 
 .calculator {
-    display: grid;
-    grid-template-columns: [calculation-section]1fr [memory-section]300px;
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: [calculation-section]1fr [memory-section]300px;
+  gap: 1rem;
 }
 
 .screen {
-    display: grid;
-    height: 12rem;
-    color: white;
-    justify-content: end;
-    /* align-items: center; */
-    text-align: end;
-    grid-template-rows: 1fr 1fr;
-    gap: 5px
+  display: grid;
+  height: 12rem;
+  color: white;
+  justify-content: end;
+  /* align-items: center; */
+  text-align: end;
+  grid-template-rows: 1fr 1fr;
+  gap: 5px;
 }
 
 .small-text {
-    display: flex;
-    align-items: end;
-    justify-content: end;
-    font-size: 14px;
-    color: rgb(171, 171, 171);
-    user-select: none;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  font-size: 14px;
+  color: rgb(171, 171, 171);
+  user-select: none;
 }
 
 .big-text {
-    display: flex;
-    align-items: start;
-    justify-content: end;
-    font-size: 2.5rem;
-    font-weight: 600;
+  display: flex;
+  align-items: start;
+  justify-content: end;
+  font-size: 2.5rem;
+  font-weight: 600;
 }
 
 .inputButtons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    height: 70vh;
-    gap: 3px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 70vh;
+  gap: 3px;
 }
 
 .memory-section {
-    display: flex;
-    color: white;
-    font-size: 14px;
-    padding: 8px 0px;
-    flex-direction: column;
-    height: 95vh;
-    overflow: auto;
-    padding: 10px;
+  display: flex;
+  color: white;
+  font-size: 14px;
+  padding: 8px 0px;
+  flex-direction: column;
+  height: 95vh;
+  overflow: auto;
+  padding: 10px;
 }
 
 .memory-header {
-    display: flex;
-    gap: 1rem;
-    padding-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1rem;
 }
 
 /* Div that store the answers and methods */
 .historyContent {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    height: 3.5rem;
-    margin-bottom: 1rem;
-    font-size: 14px;
-    text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  height: 3.5rem;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  text-align: center;
 }
 
 .historyContent:hover {
-    background-color: rgb(184, 184, 184, 0.1);
+  background-color: rgb(184, 184, 184, 0.1);
 }
 
 .stored-content {
-    text-align: end;
+  text-align: end;
 }
 
 /* For calculator keys */
 [special-key] {
-    background-color: rgb(44, 44, 44);
-    font-size: 0.9rem;
+  background-color: rgb(44, 44, 44);
+  font-size: 0.9rem;
 }
 
 [operators] {
-    background-color: rgb(44, 44, 44);
-    font-size: 1.5rem;
+  background-color: rgb(44, 44, 44);
+  font-size: 1.5rem;
 }
 
 [operands],
 .plusMinus {
-    background-color: rgb(54, 54, 54);
-    font-size: 1rem;
+  background-color: rgb(54, 54, 54);
+  font-size: 1rem;
 }
 
 [equals] {
-    background-color: gray;
-    font-size: 1.5rem;
-    color: black;
+  background-color: gray;
+  font-size: 1.5rem;
+  color: black;
 }
 
 /* hover */
 [special-key]:hover,
 [operators]:hover {
-    background-color: rgb(54, 54, 54);
+  background-color: rgb(54, 54, 54);
 }
 
 [operands]:hover,
 .plusMinus:hover {
-    background-color: rgb(44, 44, 44);
+  background-color: rgb(44, 44, 44);
 }
 
 [equals]:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
-
 
 /* active */
 [special-key]:active,
 [operators]:active {
-    background-color: rgb(44, 44, 44, 0.7);
+  background-color: rgb(44, 44, 44, 0.7);
 }
 
 [operands]:active,
-.plusMinus:active{
-    background-color: rgb(54, 54, 54, 0.3);
+.plusMinus:active {
+  background-color: rgb(54, 54, 54, 0.3);
 }
 
 [equals]:active {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 /* Clear button for memory section */
 .clearMemoButton {
-    bottom: 0;
-    background-color: rgba(91, 91, 91, 0.9);
-    padding: 0.2rem 0.5rem;
+  bottom: 0;
+  background-color: rgba(91, 91, 91, 0.9);
+  padding: 0.2rem 0.5rem;
 }
