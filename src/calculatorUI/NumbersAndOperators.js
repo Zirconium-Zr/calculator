@@ -65,8 +65,12 @@ export function displayOperators(operator) {
   resetCalculator = false;
 
   // When user presses operator button
-  bigTextField.textContent = `${parseFloat(bigTextField.textContent)}`;
-  smallTextField.textContent = `${parseFloat(bigTextField.textContent)} ${operator}`;
+  if (isAdvancedOperator) {
+    smallTextField.textContent = `${newString} ${operator}`;
+  } else {
+    bigTextField.textContent = `${parseFloat(bigTextField.textContent)}`;
+    smallTextField.textContent = `${parseFloat(bigTextField.textContent)} ${operator}`;
+  }
 
   assignOperator(operator);
 
@@ -99,17 +103,15 @@ export function displayAnswer() {
       // If there is a situation where calculation is "8 + negate(8)" or anything like that where negate is after a number, the if block will prevent screen's text to become "8 + negate(8) + 8 =" and will instead show "8 + negate(8) =". The if block will always run after continuous operation (firstNumber + secondNumber + negate(answer))
       // The else block will make the text to become "negate(8) + secondNumber = " if user clicks on equals to button after doing negate of previous operation's answer.
       if (isOperatorActive) {
-        smallTextField.textContent = `${smallTextField.textContent}`;
+        smallTextField.textContent = `${newString} ${convertOperatorSign(operatorSign, "DOM")} ${secondNumber}`;
       } else {
-        smallTextField.textContent = `${smallTextField.textContent} ${convertOperatorSign(operatorSign, "DOM")} ${secondNumber}`;
+        smallTextField.textContent = `${newString} ${convertOperatorSign(operatorSign, "DOM")} ${secondNumber}`;
       }
     } else {
       smallTextField.textContent = `${parseFloat(firstNumber)} ${convertOperatorSign(operatorSign, "DOM")} ${parseFloat(
         secondNumber // Not sure why prettier formatted it in a weird way here
       )}`;
     }
-    console.log({ newString, string });
-    console.log({ isOperandActive, isOperatorActive });
     initialseAdvancedOperatorStates();
   } else {
     smallTextField.textContent = `${parseFloat(firstNumber)} ${convertOperatorSign(operatorSign, "DOM")} ${parseFloat(
