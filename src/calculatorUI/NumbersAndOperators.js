@@ -10,7 +10,7 @@ import {
   initialiseCalculator,
 } from "../calculatorLogic/CalculatorState.js";
 import { checkForInvalidAnswer, convertOperatorSign } from "../utils/helper.js";
-import { isAdvancedOperator } from "./AdvancedOperators.js";
+import { initialseAdvancedOperatorStates, isAdvancedOperator, newString, string } from "./AdvancedOperators.js";
 
 export let newInput = false,
   resetCalculator = false,
@@ -96,16 +96,27 @@ export function displayAnswer() {
 
   // Check if user clicks equals to sign without providing an operator
   // If there is no operator, just return the number on screen as answer
-  if (operatorSign === "" || operatorSign === "No operator") smallTextField.textContent = `${parseFloat(evaluateAnswer())} =`;
+  if (operatorSign === "" || operatorSign === "No operator") smallTextField.textContent = `${parseFloat(evaluateAnswer())}`;
+  // if some special operator was clicked before clicking on equals to button
   else if (isAdvancedOperator) {
-    smallTextField.textContent = `${firstNumber} ${convertOperatorSign(operatorSign, "DOM")} ${secondNumber} =`;
+    if (smallTextField.textContent.includes("negate")) {
+      smallTextField.textContent = `${smallTextField.textContent} ${convertOperatorSign(operatorSign, "DOM")} ${secondNumber}`;
+    } else {
+      smallTextField.textContent = `${parseFloat(firstNumber)} ${convertOperatorSign(operatorSign, "DOM")} ${parseFloat(
+        secondNumber // Not sure why prettier formatted it in a weird way here
+      )}`;
+    }
+    console.log({ newString, string });
+    initialseAdvancedOperatorStates();
   } else {
     smallTextField.textContent = `${parseFloat(firstNumber)} ${convertOperatorSign(operatorSign, "DOM")} ${parseFloat(
       secondNumber // Not sure why prettier formatted it in a weird way here
-    )} =`;
+    )}`;
     // If user clicks equals to sign continuously.
     assignOperands(bigTextField.textContent);
   }
+
+  smallTextField.textContent += " =";
 
   // When user does something like dividing by 0
   // We are using firstNumber to check the condition because after perfoming operation firstNumber will be replaced by answer.

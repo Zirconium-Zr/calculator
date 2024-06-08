@@ -8,8 +8,9 @@ import { negateSign } from "../calculatorLogic/CalculatorOperation.js";
 export let replaceSmallTextField = true;
 export let isAdvancedOperator = false;
 
-let string = "",
-  newString = "";
+export let string = "",
+  newString = "",
+  switchToSmallTextField = false;
 
 export function displayChangeSign() {
   // If user clicks changeSign button after performing an operation by clicking equals to button
@@ -19,10 +20,17 @@ export function displayChangeSign() {
     console.log("1");
   }
 
-  // If user clicks equals to button
+  // If user clicks equals to button and clicks negate button
   if (!isOperandActive && !isOperatorActive) {
     replaceSmallTextField = false;
-    smallTextField.textContent = `negate(${smallTextField.textContent.replace("=", "").replace(/\s/g, "")})`;
+    if (switchToSmallTextField) {
+      smallTextField.textContent = `negate(${smallTextField.textContent.replace("=", "").replace(/\s/g, "")})`;
+      console.log({ switchToSmallTextField });
+    } else {
+      smallTextField.textContent = `negate(${bigTextField.textContent})`;
+      switchToSmallTextField = true;
+      console.log({ switchToSmallTextField });
+    }
     console.log("2");
   }
   // If user has selected operator but has not assigned second operator yet and clicks on change sign button
@@ -51,6 +59,14 @@ export function displayChangeSign() {
   }
 
   bigTextField.textContent = `${negateSign(bigTextField.textContent)}`;
+  isAdvancedOperator = true;
 
   assignOperands(bigTextField.textContent);
+}
+
+export function initialseAdvancedOperatorStates() {
+  isAdvancedOperator = false;
+  string = "";
+  newString = "";
+  switchToSmallTextField = !switchToSmallTextField;
 }
