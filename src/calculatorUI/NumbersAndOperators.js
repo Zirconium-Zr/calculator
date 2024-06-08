@@ -117,11 +117,11 @@ export function displayAnswer() {
     smallTextField.textContent = `${parseFloat(firstNumber)} ${convertOperatorSign(operatorSign, "DOM")} ${parseFloat(
       secondNumber // Not sure why prettier formatted it in a weird way here
     )}`;
-    // If user clicks equals to sign continuously.
-    assignOperands(bigTextField.textContent);
   }
 
   smallTextField.textContent += " =";
+  // If user clicks equals to sign continuously, the answer will be assigned as firstNumber
+  assignOperands(bigTextField.textContent);
 
   // When user does something like dividing by 0
   // We are using firstNumber to check the condition because after perfoming operation firstNumber will be replaced by answer.
