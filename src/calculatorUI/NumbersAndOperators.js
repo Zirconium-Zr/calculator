@@ -87,10 +87,6 @@ export function displayOperators(operator) {
 }
 
 export function displayAnswer() {
-  disableButtons = false;
-  isOperatorActive = false;
-  isOperandActive = false;
-
   // The reason to call the function "evaluateAnswer()" instead of the variable "answer" is so that the function can get receive operands, perform operation and finally give answer
   bigTextField.textContent = parseFloat(evaluateAnswer());
 
@@ -100,13 +96,20 @@ export function displayAnswer() {
   // if some special operator was clicked before clicking on equals to button
   else if (isAdvancedOperator) {
     if (smallTextField.textContent.includes("negate")) {
-      smallTextField.textContent = `${smallTextField.textContent} ${convertOperatorSign(operatorSign, "DOM")} ${secondNumber}`;
+      // If there is a situation where calculation is "8 + negate(8)" or anything like that where negate is after a number, the if block will prevent screen's text to become "8 + negate(8) + 8 =" and will instead show "8 + negate(8) =". The if block will always run after continuous operation (firstNumber + secondNumber + negate(answer))
+      // The else block will make the text to become "negate(8) + secondNumber = " if user clicks on equals to button after doing negate of previous operation's answer.
+      if (isOperatorActive) {
+        smallTextField.textContent = `${smallTextField.textContent}`;
+      } else {
+        smallTextField.textContent = `${smallTextField.textContent} ${convertOperatorSign(operatorSign, "DOM")} ${secondNumber}`;
+      }
     } else {
       smallTextField.textContent = `${parseFloat(firstNumber)} ${convertOperatorSign(operatorSign, "DOM")} ${parseFloat(
         secondNumber // Not sure why prettier formatted it in a weird way here
       )}`;
     }
     console.log({ newString, string });
+    console.log({ isOperandActive, isOperatorActive });
     initialseAdvancedOperatorStates();
   } else {
     smallTextField.textContent = `${parseFloat(firstNumber)} ${convertOperatorSign(operatorSign, "DOM")} ${parseFloat(
@@ -128,4 +131,7 @@ export function displayAnswer() {
   // if (isNaN(evaluateAnswer())) return (bigTextField.textContent = "Result is undefined");
   resetCalculator = true;
   newInput = true;
+  disableButtons = false;
+  isOperatorActive = false;
+  isOperandActive = false;
 }
