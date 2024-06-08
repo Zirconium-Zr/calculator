@@ -10,13 +10,22 @@ import {
   initialiseCalculator,
 } from "../calculatorLogic/CalculatorState.js";
 import { checkForInvalidAnswer, convertOperatorSign } from "../utils/helper.js";
+import { isAdvancedOperator } from "./AdvancedOperators.js";
 
 export let newInput = false,
   resetCalculator = false,
-  disableButtons = false;
+  disableButtons = false,
+  // For advanced operators UI to know if operator or operand is currently active or not.
+  // Only active when nothing is pressed except operator.
+  isOperatorActive = false,
+  //Only active when nothing is pressed except operand.
+  isOperandActive = false;
 
 export function displayNumbers(number) {
   disableButtons = false;
+  isOperatorActive = false;
+  isOperandActive = true;
+
   // After user clicks equals to button and selects a number right after
   if (resetCalculator) {
     resetCalculator = false;
@@ -49,6 +58,8 @@ export function displayNumbers(number) {
 
 export function displayOperators(operator) {
   newInput = true;
+  isOperatorActive = true;
+  isOperandActive = false;
 
   // Do not reset calculator if user selects operator. It will prevent smallTextField value from being empty
   resetCalculator = false;
@@ -77,13 +88,18 @@ export function displayOperators(operator) {
 
 export function displayAnswer() {
   disableButtons = false;
+  isOperatorActive = false;
+  isOperandActive = false;
+
   // The reason to call the function "evaluateAnswer()" instead of the variable "answer" is so that the function can get receive operands, perform operation and finally give answer
   bigTextField.textContent = parseFloat(evaluateAnswer());
 
   // Check if user clicks equals to sign without providing an operator
   // If there is no operator, just return the number on screen as answer
   if (operatorSign === "" || operatorSign === "No operator") smallTextField.textContent = `${parseFloat(evaluateAnswer())} =`;
-  else {
+  else if (isAdvancedOperator) {
+    smallTextField.textContent = `${firstNumber} ${convertOperatorSign(operatorSign, "DOM")} ${secondNumber} =`;
+  } else {
     smallTextField.textContent = `${parseFloat(firstNumber)} ${convertOperatorSign(operatorSign, "DOM")} ${parseFloat(
       secondNumber // Not sure why prettier formatted it in a weird way here
     )} =`;

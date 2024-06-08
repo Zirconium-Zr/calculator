@@ -23,3 +23,8 @@ export function operate(firstNumber, secondNumber, operator) {
       return divide(parseFloat(firstNumber), parseFloat(secondNumber));
   }
 }
+
+export function negateSign(operand) {
+  return parseFloat(operand * -1);
+  //   console.log(operand);
+}

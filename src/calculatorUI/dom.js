@@ -1,7 +1,7 @@
 import { clearValues } from "./ClearButtons.js";
 import { displayNumbers, displayOperators, displayAnswer } from "./NumbersAndOperators.js";
 import { disableButtons } from "../calculatorUI/NumbersAndOperators.js";
-import { changeSign } from "./AdvancedOperators.js";
+import { displayChangeSign } from "./AdvancedOperators.js";
 
 const buttons = document.querySelectorAll("button");
 export const bigTextField = document.querySelector(".big-text");
@@ -34,7 +34,7 @@ buttons.forEach((button) => {
         clearValues("clearAll");
       }
     } else if (button.classList.contains("plusMinus")) {
-      changeSign();
+      displayChangeSign();
     }
   });
 });
