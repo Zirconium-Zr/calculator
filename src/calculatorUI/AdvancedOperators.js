@@ -1,4 +1,4 @@
-import { assignOperands, switchToSecondNumber, secondNumber } from "../calculatorLogic/CalculatorState.js";
+import { assignOperands, switchToSecondNumber, secondNumber, firstNumber } from "../calculatorLogic/CalculatorState.js";
 import { bigTextField, smallTextField } from "./dom.js";
 import { resetCalculator, isOperatorActive, isOperandActive } from "./NumbersAndOperators.js";
 import { negateSign } from "../calculatorLogic/CalculatorOperation.js";
@@ -10,7 +10,7 @@ export let isAdvancedOperator = false;
 
 export let string = "",
   newString = "",
-  switchToSmallTextField = false;
+  replaceWithBigTextField = false;
 
 export function displayChangeSign() {
   // If user clicks changeSign button after performing an operation by clicking equals to button
@@ -23,14 +23,15 @@ export function displayChangeSign() {
   // If user clicks equals to button and clicks negate button
   if (!isOperandActive && !isOperatorActive) {
     replaceSmallTextField = false;
-    if (switchToSmallTextField) {
-      smallTextField.textContent = `negate(${smallTextField.textContent.replace("=", "").replace(/\s/g, "")})`;
-      console.log({ switchToSmallTextField });
-    } else {
+    if (replaceWithBigTextField) {
       smallTextField.textContent = `negate(${bigTextField.textContent})`;
-      switchToSmallTextField = true;
-      console.log({ switchToSmallTextField });
+      replaceWithBigTextField = false;
+      console.log({ replaceWithBigTextField });
+    } else {
+      smallTextField.textContent = `negate(${smallTextField.textContent.replace("=", "").replace(/\s/g, "")})`;
+      console.log({ replaceWithBigTextField });
     }
+    newString = smallTextField.textContent;
     console.log("2");
   }
   // If user has selected operator but has not assigned second operator yet and clicks on change sign button
@@ -43,13 +44,16 @@ export function displayChangeSign() {
   // Once second operand is assigned and user clicks on change sign button multiple times
   else if (secondNumber !== "" && isOperatorActive) {
     if (string === "") {
-      string = ` negate(${smallTextField.textContent.slice(0, 1)})`;
-      // string = smallTextField.textContent.slice(0, 1);
-      console.log(string);
-      smallTextField.textContent += string;
+      // string = Array.from(smallTextField.textContent)
+      //   // returns the values that are numbers
+      //   .filter((text) => Number(text))
+      //   .toString()
+      //   .replaceAll(",", "");
+      string = ` negate(${firstNumber})`;
+      smallTextField.textContent += ` ${string}`;
     } else {
       // prevString = string;
-      newString = ` negate(${string.replace(/\s/g, "")})`;
+      newString = ` negate(${string})`;
       console.log({ newString, string });
       smallTextField.textContent = smallTextField.textContent.replace(string, newString);
       string = newString;
@@ -68,5 +72,5 @@ export function initialseAdvancedOperatorStates() {
   isAdvancedOperator = false;
   string = "";
   newString = "";
-  switchToSmallTextField = !switchToSmallTextField;
+  replaceWithBigTextField = !replaceWithBigTextField;
 }
