@@ -1,4 +1,4 @@
-import { assignOperands } from "../calculatorLogic/calculator.js";
+import { assignOperands } from "../calculatorLogic/CalculatorState.js";
 import { bigTextField, smallTextField } from "./dom.js";
 
 export function changeSign() {

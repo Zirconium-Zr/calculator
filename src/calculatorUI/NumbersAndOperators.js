@@ -8,7 +8,7 @@ import {
   answer,
   assignOperator,
   initialiseCalculator,
-} from "../calculatorLogic/calculator.js";
+} from "../calculatorLogic/CalculatorState.js";
 import { checkForInvalidAnswer, convertOperatorSign } from "../utils/helper.js";
 
 export let newInput = false,

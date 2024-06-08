@@ -1,4 +1,4 @@
-import { assignOperands, initialiseCalculator, displayedAnswer } from "../calculatorLogic/calculator.js";
+import { assignOperands, initialiseCalculator, displayedAnswer } from "../calculatorLogic/CalculatorState.js";
 import { bigTextField, smallTextField } from "./dom.js";
 import { newInput } from "./NumbersAndOperators.js";
 

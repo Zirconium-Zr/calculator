@@ -1,4 +1,4 @@
-import { initialiseCalculator } from "../calculatorLogic/calculator.js";
+import { initialiseCalculator } from "../calculatorLogic/CalculatorState.js";
 
 export function convertOperatorSign(operator, signFor) {
   if (signFor === "Calculator") {
